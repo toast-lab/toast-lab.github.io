@@ -1,6 +1,6 @@
 # Site settings
-title: Website Title
-description: Website short description
+title: Toast Lab
+description: We together orchestrate architecture, system, and theory for computing.
 baseurl: "" 
 #change the baseurl to "" if you are using it as your user GitHub Pages
 url: "https://toast-lab.github.io"  
@@ -9,16 +9,16 @@ url: "https://toast-lab.github.io"
 # GitHub User settings
 username: toast-lab
 github_username: toast-lab
-user_description: Admin of toast lab
+user_description: Director of Toast Lab
 user_title: toast-lab
 email: 
 
 # Blog Author settings
-author:
-  name:            
+author: wangc
+  name: Chundong Wang          
   picture:        
-  email:           
-  description:     
+  email: cd_wang@outlook.com 
+  description: Director of Toast Lab
   twitter:
   facebook:
   github:          
