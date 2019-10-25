@@ -1,6 +1,6 @@
 # Site settings
 title: Toast Lab
-description: We together orchestrate architecture, system, and theory for computing.
+description: We <font color="yellow">t</font>ogether orchestrate architecture, system, and theory for computing.
 baseurl: "" 
 #change the baseurl to "" if you are using it as your user GitHub Pages
 url: "https://toast-lab.github.io"  
