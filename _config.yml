@@ -1,7 +1,7 @@
 # Site settings
 title: Toast Lab
-#description: <font color="yellow">T</font>o <font color="yellow">o</font>rchestrate <font color="yellow">a</font>rchitecture, <font color="yellow">s</font>ystem, and <font color="yellow">t</font>heory for computing.
-description: <mark>T</mark>o <mark>o</mark>rchestrate <mark>a</mark>rchitecture, <mark>s</mark>ystem, and <mark>t</mark>heory for computing.
+description: <font color="yellow">T</font>o <font color="yellow">o</font>rchestrate <font color="yellow">a</font>rchitecture, <font color="yellow">s</font>ystem, and <font color="yellow">t</font>heory for computing.
+#description: <mark>T</mark>o <mark>o</mark>rchestrate <mark>a</mark>rchitecture, <mark>s</mark>ystem, and <mark>t</mark>heory for computing.
 baseurl: ""
 #change the baseurl to "" if you are using it as your user GitHub Pages
 url: "https://toast-lab.github.io"  
