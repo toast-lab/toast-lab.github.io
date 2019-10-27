@@ -1,5 +1,5 @@
 ---
-title: Website of Toast Lab Is Created
+title: Website of Toast Lab Is Online
 commentable: false
 Edit: 2019-10-25
 mathjax: true
