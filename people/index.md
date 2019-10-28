@@ -2,7 +2,7 @@
 layout: info
 title: Members of Toast Lab
 ---
-hr.new {
+hr.new1 {
   border: 1px solid red;
 }
 
@@ -15,10 +15,10 @@ hr.new {
 </div>
 
 <div class="clear"></div>
-<hr class="new">
+<hr class="new1">
 
 <h2><a class="students">Students</a></h2>
 To be filled soon.
 
 <div class="clear"></div>
-<hr class="new">
+<hr class="new1">
