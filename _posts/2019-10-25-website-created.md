@@ -1,6 +1,5 @@
 ---
 title: Website of Toast Lab Is Online
-layout: info
 commentable: false
 Edit: 2019-10-25
 mathjax: true
