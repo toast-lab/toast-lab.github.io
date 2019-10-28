@@ -1,5 +1,6 @@
 ---
-layout: displayindex
+#layout: displayindex
+layout: info
 title: All Posts
 ---
 <h1>{{ page.title }}</h1>
