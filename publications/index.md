@@ -49,4 +49,4 @@ title: Publications of Toast Lab
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 </ol>
-<p>... <a href="./papers.html">Full Publication List</a> </p>
+<p>... <a href="./papers.md">Full Publication List</a> </p>
