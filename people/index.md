@@ -12,4 +12,3 @@ Currently Chundong works in the ASSET Group of Singapore University of Technolog
 </p>
 </div>
 <div class="clear"></div>
-</div>
