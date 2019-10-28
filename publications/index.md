@@ -3,7 +3,7 @@ layout: info
 title: Publications of Toast Lab
 ---
 <h3>Selected Publications</h3>
-
+<ol>
 <li>
 <span class="author">Cheng Chen, Qingsong Wei, Weng-Fai Wong, Chundong Wang</span>,
 <span class="title">"NV-Journaling: Locality-aware Journaling using Byte-addressable Non-volatile Memory"</span>,
@@ -48,5 +48,5 @@ title: Publications of Toast Lab
 [<a target="_self" href="https://www.usenix.org/conference/fast15/technical-sessions/presentation/yang">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
-
+</ol>
 <p>... <a href="./papers.html">Full Publication List</a> </p>
