@@ -3,10 +3,8 @@ layout: info
 title: Tag Index
 ---
 
-<h3><a href="{{site.url}}{{site.baseurl}}/blog"><font color="red">Back</font></a></h3>
-
 <div class="container">
-  <h3>Tags</h3>
+  <h3>Tags (<a href="{{site.url}}{{site.baseurl}}/blog"><font color="red">Back</font></a>)</h3>
 	{% assign tags = site.tags | sort %}
 	{% for tag in tags %}
 		<span class="site-tag">
