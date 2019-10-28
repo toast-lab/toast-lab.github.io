@@ -3,7 +3,7 @@ layout: info
 title: Members of Toast Lab
 ---
 
-<h2><a class="faculty">Faculty</a></h2>
+<h2><a name="/people/faculty">Faculty</a></h2>
 <div class="news-row-left"><img src="./photos/wangc.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="prof">
 <p><strong>Chundong Wang</strong> was born in Shandong Province, China. In July 2008, he graduated with a bachelor's degree from Xi'an Jiaotong University in Xi'an, Shaanxi, China. In November 2013, Chundong obtained the doctoral degree in the School of Computing of the National University of Singapore. His supervisor is Associate Professor Weng-Fai Wong.</p>
@@ -14,7 +14,7 @@ title: Members of Toast Lab
 <div class="clear"></div>
 <hr color="red">
 
-<h2><a class="students">Students</a></h2>
+<h2><a name="/people/students">Students</a></h2>
 To be filled soon.
 
 <div class="clear"></div>
