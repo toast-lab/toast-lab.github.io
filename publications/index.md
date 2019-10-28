@@ -10,7 +10,6 @@ title: Publications of Toast Lab
 <span class="publisher">IEEE Transactions on Computers</span>, vol. , no. , September, <span class="year">2019</span>.
 
 [<a target="_self" href="https://dx.doi.org/10.1109/TC.2019.2948004">link</a>]&nbsp;
-[<a type="button" data-toggle="modal" data-target="#bib-NVM-NV-Journaling-TC-2019">bibtex</a>]&nbsp;
 (<span class="hlnote0">Full Paper, <i>accepted in September 2019</i>.</span>)&nbsp;
 
 </li>
