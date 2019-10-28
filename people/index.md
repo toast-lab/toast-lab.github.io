@@ -3,7 +3,6 @@ layout: info
 title: Members of Toast Lab
 ---
 <h2>Faculty</h2>
-<div class="news-row"style="padding-left:10px">
 <div class="news-row-left"><img src="./photos/wangc.jpg" height="140" alt="" /></div>
 <div class="news-row-right2" id="prof">
 <h3>Chundong Wang</h3>
