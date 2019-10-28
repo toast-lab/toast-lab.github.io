@@ -10,10 +10,10 @@ title: All Posts
     </dt>
     {% if post.description %}
  <dd style="text-align: justify">{{ post.description  | markdownify }}
-    </dd>
-			 {% endif %}
+ </dd>
+ {% endif %}
 		
-		{% endfor %}
-	</dl>
+ {% endfor %}
+ </dl>
 
 	
