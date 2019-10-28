@@ -24,7 +24,29 @@
    <link rel="stylesheet" href="/assets/css/topbar.css">
    {% include theme-vue.html%}
    <body>
-
+      <!-- Add all page content inside this div if you want the side nav to push page content to the right
+         (not used if you only want the sidenav to sit on top of the page -->
+      <div class="wrap">                                         
+         <div class="container content">                         
+            <div class="page">
+               <div id="title">                                  
+                  <h1>
+                     {{page.title}}                              
+                  </h1>
+               </div>
+               <div id="info">                                   
+                  <div id="date">                                
+                     {% if page.edit %}                          
+                     <p><code>Edited</code>:  &nbsp; {{ page.edit | date: '%B %d, %Y' }} </p>
+                     {% endif %}
+                  </div>
+               </div>
+               <div id="content-container" style="text-align:justify">
+                  {{ content }}                                  
+               </div>
+            </div>                                               
+         </div>   
+      </div>
       {% include footer.html %} 
    </body>
    {% if page.mermaid == true %}
