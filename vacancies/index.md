@@ -3,4 +3,4 @@ layout: info
 title: Open Positions
 ---
 
-To be announced soon...
+<p>To be announced soon...</p>
