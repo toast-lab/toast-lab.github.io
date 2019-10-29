@@ -38,7 +38,6 @@ title: Publications of Toast Lab
 <span class="publisher">IEEE Transactions on Computers</span>, vol. 65, no. 8, pp. 2618&ndash;2630, August, <span class="year">2016</span>.
 
 [<a target="_self" href="https://dx.doi.org/10.1109/TC.2015.2485221">link</a>]&nbsp;
-[<a type="button" data-toggle="modal" data-target="#bib-flash-TreeFTL-TC-2016">bibtex</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 
