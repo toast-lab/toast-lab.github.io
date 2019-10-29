@@ -43,7 +43,7 @@ title: Publications of Toast Lab
 <li>
 <span class="author">Jun Yang, Qingsong Wei, Cheng Chen, Chundong Wang, Khai Leong Yong, Bingsheng He</span>,
 <span class="title">"NV-Tree: Reducing Consistency Cost for NVM-based Single Level Systems"</span>,
-<span class="publisher">13th USENIX Conference on File and Storage Technologies (FAST 15)</span>, pp. 167&ndash;181, Febuary, <span class="year">2015</span>.
+<span class="publisher">13th USENIX Conference on File and Storage Technologies (FAST 15)</span>, pp. 167&ndash;181, February, <span class="year">2015</span>.
 
 [<a target="_self" href="https://www.usenix.org/conference/fast15/technical-sessions/presentation/yang">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
