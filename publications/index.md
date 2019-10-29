@@ -16,7 +16,7 @@ title: Publications of Toast Lab
 <li>
 <span class="author">Chundong Wang, Sudipta Chattopadhyay, Gunavaran Brihadiswarn</span>,
 <span class="title">"Crash Recoverable ARMv8-oriented B+-tree for Byte-addressable Persistent Memory"</span>,
-<span class="publisher">Proceedings of the 20th ACM SIGPLAN/SIGBED International Conference on Languages, Compilers, and Tools for Embedded Systems</span>, pp. 33&ndash;44, <span class="year">2019</span>.
+<span class="publisher">Proceedings of the 20th ACM SIGPLAN/SIGBED International Conference on Languages, Compilers, and Tools for Embedded Systems</span>, pp. 33&ndash;44, June, <span class="year">2019</span>.
 
 [<a target="_self" href="http://doi.acm.org/10.1145/3316482.3326358">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
@@ -25,7 +25,7 @@ title: Publications of Toast Lab
 <li>
 <span class="author">Chundong Wang, Sudipta Chattopadhyay</span>,
 <span class="title">"LAWN: Boosting the Performance of NVMM File System Through Reducing Write Amplification"</span>,
-<span class="publisher">Proceedings of the 55th Annual Design Automation Conference</span>, pp. 6:1&ndash;6:6, <span class="year">2018</span>.
+<span class="publisher">Proceedings of the 55th Annual Design Automation Conference</span>, pp. 6:1&ndash;6:6, June, <span class="year">2018</span>.
 
 [<a target="_self" href="http://doi.acm.org/10.1145/3195970.3196066">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
