@@ -9,7 +9,7 @@ mathjax: true
 ---
 <img src="./logo.png" alt="The Logo of Toast Lab" width="210"> <br>
 <h2><a class="toast"><font color="maroon">What does Toast mean?</font></a></h2>
-<p>Toast means that, together we are <font color="darkblue">t</font>o <font color="darkblue">o</font>rchestrate <font color="darkblue">a</font>chitecture, <font color="darkblue">s</font>ystem, and <font color="darkblue">t</font>heory for computing. In a nutshell, we focus on exploring how to 
+<p>Toast means that, together we are <strong><font color="blue">t</font></strong>o <strong><font color="blue">o</font></strong>rchestrate <strong><font color="blue">a</font></strong>chitecture, <strong><font color="blue">s</font></strong>ystem, and <strong><font color="blue">t</font></strong>heory for computing. In a nutshell, we focus on exploring how to 
 design and optimize computer systems for high performance, cyber security, energy efficiency, etc.</p>
 
 <p><a href="{{site.url}}{{site.baseurl}}/people#faculty" style="text-decoration: none;"><font color="purple">Chundong Wang</font></a> (Email: <u>cd_wang <i>the-at-symbol</i> outlook.com</u>) will be the Lab's director.</p>
