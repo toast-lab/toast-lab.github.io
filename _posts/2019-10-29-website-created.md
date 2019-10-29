@@ -9,4 +9,4 @@ categories: information
 description: The website of Toast Lab is online today.
 ---
 
-<p>The website of Toast Lab is launched online on 25 October, 2019. We would announce the latest progress and news of the Lab on this website.</p>
+<p>The website of Toast Lab is launched online on 29 October, 2019. We would announce the latest progress and news of the Lab on this website.</p>
