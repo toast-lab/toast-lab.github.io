@@ -4,15 +4,7 @@ title: Publications of Toast Lab
 ---
 <h3>Selected Publications</h3>
 <ol>
-<li>
-<span class="author">Cheng Chen, Qingsong Wei, Weng-Fai Wong, Chundong Wang</span>,
-<span class="title">"NV-Journaling: Locality-aware Journaling using Byte-addressable Non-volatile Memory"</span>,
-<span class="publisher">IEEE Transactions on Computers</span>, vol. , no. , September, <span class="year">2019</span>.
 
-[<a target="_self" href="https://dx.doi.org/10.1109/TC.2019.2948004">link</a>]&nbsp;
-(<span class="hlnote0">Full Paper, <i>accepted in September 2019</i>.</span>)&nbsp;
-
-</li>
 <li>
 <span class="author">Chundong Wang, Sudipta Chattopadhyay, Gunavaran Brihadiswarn</span>,
 <span class="title">"Crash Recoverable ARMv8-oriented B+-tree for Byte-addressable Persistent Memory"</span>,
@@ -37,6 +29,16 @@ title: Publications of Toast Lab
 <span class="publisher">Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis</span>, pp. 56:1&ndash;56:12, November, <span class="year">2017</span>.
 
 [<a target="_self" href="http://doi.acm.org/10.1145/3126908.3126940">link</a>]&nbsp;
+(<span class="hlnote0">Full Paper</span>)&nbsp;
+</li>
+
+<li>
+<span class="author">Chundong Wang, Weng-Fai Wong</span>,
+<span class="title">"TreeFTL: An Efficient Workload-Adaptive Algorithm for RAM Buffer Management of NAND Flash-Based Devices"</span>,
+<span class="publisher">IEEE Transactions on Computers</span>, vol. 65, no. 8, pp. 2618&ndash;2630, August, <span class="year">2016</span>.
+
+[<a target="_self" href="https://dx.doi.org/10.1109/TC.2015.2485221">link</a>]&nbsp;
+[<a type="button" data-toggle="modal" data-target="#bib-flash-TreeFTL-TC-2016">bibtex</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 
