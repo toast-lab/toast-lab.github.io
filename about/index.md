@@ -15,4 +15,4 @@ design and optimize computer systems for high performance, cyber security, energ
 <p><a href="{{site.url}}{{site.baseurl}}/people#faculty" style="text-decoration: none;"><font color="purple">Chundong Wang</font></a> (Email: cd_wang <<i>the-at-sign</i>> outlook.com) will be the Lab's director.</p>
 
 <h2><a class="contact"><font color="maroon">How to Contact Us</font></a></h2>
-Should you have any question, please drop an email to <q>toast.lab <<i>the-at-sign</i>> outlook.com</q>.
+<p>Should you have any question, please drop an email to <q>toast.lab <<i>the-at-sign</i>> outlook.com</q>.</p>
