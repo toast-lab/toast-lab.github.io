@@ -8,5 +8,5 @@ Positions for Master's students, Postdoctoral Research Fellows, and Research Eng
 available from Februray 2020. Candidates with interests in computer systems and architectures
 are strongly welcome to apply.</p>
 
-<p>Interested applicants may contact Chundong (cd_wang <<i>the-at-sign</i>> outlook.com)
+<p>Interested applicants may contact Chundong (Email: cd_wang <<i>the-at-sign</i>> outlook.com)
 directly with their CVs.</p>
