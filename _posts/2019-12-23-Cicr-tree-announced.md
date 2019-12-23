@@ -1,12 +1,12 @@
 ---
-title: The announcement of Circ-Tree
+title: The Release of Circ-Tree
 commentable: false
 Edit: 2019-12-23
 mathjax: true
 mermaid: true
 tags: News
 categories: Progress
-description: A new B+-tree variant for persistent memory with circular design
+description: Circ-Tree is a new B+-tree variant for persistent memory with circular design.
 ---
 
 <p>We have released a pre-print paper titled "<a href="https://arxiv.org/abs/1912.09783" target="_blank">Circ-Tree: A B+-Tree Variant with Circular Design for Persistent Memory
