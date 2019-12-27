@@ -17,7 +17,7 @@ title: Members of Toast Lab
 <h2><a name="/people/students"><font color="darkred">Students</font></a></h2>
 <div class="news-row-left"><img src="./photos/yecn.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-yecn">
-<p><b>Chongnan Ye</b> (&#21494;&#23815;&#21335;), majoring in Computer Science at ShanghaiTech University from 2016 to 2020, will join Toast Lab for the final year project and Master's degree in 2020. His research interests are on the fundamental concepts of computing, data management and analytics.</p>
+<p><b>Chongnan Ye</b> (&#21494;&#23815;&#21335;), majoring in Computer Science at ShanghaiTech University from 2016 to 2020, will join Toast Lab for the final year project of undergraduate programme and Master's degree in 2020. His research interests are on the fundamental concepts of computing, data management and analytics.</p>
 </div>
 
 <div class="clear"></div>
