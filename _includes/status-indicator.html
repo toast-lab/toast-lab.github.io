@@ -8,6 +8,8 @@
 <code style="background-color: #B98342; color: white;"><b>{{ status}}</b></code> 
 {% when  'Archived' %}
 <code style="background-color: #345E5E; color: white;"><b>{{ status}}</b></code> 
-{% else %}	
+{% when  'In-Progress' %}	
 <code style="background-color: #ff0000; color: white;"><b>{{ status}}</b></code> 
+{% else %}
+<code style="background-color: #ffffff; color: white;"><b>{{ status}}</b></code> 
 {% endcase %}
