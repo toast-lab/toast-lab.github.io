@@ -7,7 +7,8 @@
 {% when  'Paused' %}
 <code style="background-color: #B98342; color: white;"><b>{{ status}}</b></code> 
 {% when  'Archived' %}
-<code style="background-color: #345E5E;color: white;"><b>{{ status}}</b></code> 
+<code style="background-color: #345E5E; color: white;"><b>{{ status}}</b></code> 
 {% else %}	
-<code><b>{{ post.status}}</b></code> 
+#<code><b>{{ post.status}}</b></code> 
+<code style="background-color: #ff0000; color: white;"><b>{{ status}}</b></code> 
 {% endcase %}
