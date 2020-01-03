@@ -4,7 +4,7 @@ commentable: false
 Edit: 2019-12-23
 mathjax: true
 mermaid: true
-status: Test
+status: In-Progress
 tags: News
 categories: Progress
 description: Circ-Tree is a new B+-tree variant for persistent memory with circular design.
