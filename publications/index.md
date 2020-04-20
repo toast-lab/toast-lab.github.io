@@ -8,7 +8,7 @@ title: Publications of Toast Lab
 <li>
 <span class="author">Chundong Wang, Sudipta Chattopadhyay, Gunavaran Brihadiswarn</span>,
 <span class="title">"Crab-tree: A Crash Recoverable B+-tree Variant for Persistent Memory with ARMv8 Architecture"</span>,
-<span class="publisher"><i>Accepted by</i> ACM Transactions on Embedded Computing Systems</span>, April, <span class="year">2020</span>.
+<span class="publisher"><i>Accepted </i>by ACM Transactions on Embedded Computing Systems (TECS)</span>, April, <span class="year">2020</span>.
 
 [<a target="_self" href="http://toast-lab.tech/publication/crab-tree-accepted.html">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
