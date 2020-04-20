@@ -10,7 +10,7 @@ title: Publications of Toast Lab
 <span class="title">"Crab-tree: A Crash Recoverable B+-tree Variant for Persistent Memory with ARMv8 Architecture"</span>,
 <span class="publisher"><i>Accepted by</i> ACM Transactions on Embedded Computing Systems</span>, April, <span class="year">2020</span>.
 
-[<a target="_self" href="http://doi.acm.org/10.1145/3316482.3326358">link</a>]&nbsp;
+[<a target="_self" href="http://toast-lab.tech/publication/crab-tree-accepted.html">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 
