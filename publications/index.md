@@ -15,6 +15,15 @@ title: Publications of Toast Lab
 </li>
 
 <li>
+<span class="author">Matheus E. Garbelini, Chundong Wang, Sudipta Chattopadhyay, Sumei Sun, Ernest Kurniawan</span>,
+<span class="title">"SweynTooth: Unleashing Mayhem over Bluetooth Low Energy"</span>,
+<span class="publisher"><i>Accepted </i>by the 2020 USENIX Annual Technical Conference (USENIX ATC '20)</span>, July, <span class="year">2020</span>.
+
+[<a target="_self" href="https://www.usenix.org/conference/atc20">link</a>]&nbsp;
+(<span class="hlnote0">Full Paper</span>)&nbsp;
+</li>
+
+<li>
 <span class="author">Chundong Wang, Sudipta Chattopadhyay</span>,
 <span class="title">"LAWN: Boosting the Performance of NVMM File System Through Reducing Write Amplification"</span>,
 <span class="publisher">Proceedings of the 55th Annual Design Automation Conference</span>, pp. 6:1&ndash;6:6, June, <span class="year">2018</span>.
@@ -29,15 +38,6 @@ title: Publications of Toast Lab
 <span class="publisher">Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis</span>, pp. 56:1&ndash;56:12, November, <span class="year">2017</span>.
 
 [<a target="_self" href="http://doi.acm.org/10.1145/3126908.3126940">link</a>]&nbsp;
-(<span class="hlnote0">Full Paper</span>)&nbsp;
-</li>
-
-<li>
-<span class="author">Chundong Wang, Weng-Fai Wong</span>,
-<span class="title">"TreeFTL: An Efficient Workload-Adaptive Algorithm for RAM Buffer Management of NAND Flash-Based Devices"</span>,
-<span class="publisher">IEEE Transactions on Computers</span>, vol. 65, no. 8, pp. 2618&ndash;2630, August, <span class="year">2016</span>.
-
-[<a target="_self" href="https://dx.doi.org/10.1109/TC.2015.2485221">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 
