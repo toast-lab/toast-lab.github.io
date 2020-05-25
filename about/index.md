@@ -23,4 +23,4 @@ mathjax: true
 <h2><a class="contact"><font color="maroon">Useful Links</font></a></h2>
 <p><a href="http://www.shanghaitech.edu.cn/" target="_blank">ShanghaiTech University</a><p>
 <p><a href="http://sist.shanghaitech.edu.cn/" target="_blank">The School of Information Science and Technology (SIST) at ShanghaiTech University</a><p>
-<p><a href="https://www.ccf.org.cn/Academic_Evaluation/By_category/">CCF Ranking List of Conferences and Journals (2019)</a></p>
+<p><a href="https://www.ccf.org.cn/Academic_Evaluation/By_category/" target="_blank">CCF Ranking List of Conferences and Journals (2019)</a></p>
