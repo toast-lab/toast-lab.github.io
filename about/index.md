@@ -13,5 +13,14 @@ mathjax: true
 
 <p><a href="{{site.url}}{{site.baseurl}}/people#faculty" style="text-decoration: none;"><font color="purple">Chundong Wang</font></a> (Email: cd_wang <<i>the-at-sign</i>> outlook.com) is the Lab's director. He has co-authored dozens of peer-reviewed <a href="{{site.url}}{{site.baseurl}}/publications" style="text-decoration: none;">papers</a> in top venues, including IEEE TC, ACM TOS, DAC, SC, USENIX ATC, USENIX FAST, DATE, MSST, LCTES, Cluster Computing, etc.</p>
 
+
 <h2><a class="contact"><font color="maroon">How to Contact Us</font></a></h2>
 <p>Should you have any question, please drop an email to <q>toast.lab <<i>the-at-sign</i>> outlook.com</q>.</p>
+
+
+
+
+<h2><a class="contact"><font color="maroon">Useful Links</font></a></h2>
+<p><a href="http://www.shanghaitech.edu.cn/" target="_blank">ShanghaiTech University</a><p>
+<p><a href="http://sist.shanghaitech.edu.cn/" target="_blank">The School of Information Science and Technology (SIST) at ShanghaiTech University</a><p>
+<p><a href="https://www.ccf.org.cn/Academic_Evaluation/By_category/">CCF Ranking List of Conferences and Journals (2019)</a></p>
