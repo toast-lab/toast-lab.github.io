@@ -5,7 +5,7 @@ Edit: 2020-06-05
 mathjax: true
 mermaid: true
 tags: General
-categories: Publication
+categories: News
 description: Congratulations to Chongnan!
 ---
 
