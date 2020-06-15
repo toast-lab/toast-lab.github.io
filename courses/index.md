@@ -35,3 +35,8 @@ title: Courses Materials.
 <li><a href="CA2020-lectures/2020-CA-L28_Dependability.pdf" target="_blank">L28</a> </li>
 <li><a href="CA2020-lectures/2020-CA-L29_Security.pdf" target="_blank">L29</a> </li>
 </ul>
+
+<H3>CA 2020 Labs</H3>
+<ul>
+<li><a href="CA2020-labs/13/index.html" target="_blank">Lab 13</a></li>
+</ul>
