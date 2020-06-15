@@ -54,39 +54,39 @@ pre {
 
 <p>Splitters allow you to take a multi-bit value and split it up into smaller parts, or (despite the name) combine multiple values that are one or more bits into a single value. Here, we split the 4-bit binary number <code>1001</code> into <code>10</code> and <code>01</code>, then recombine it with <code>11</code> into the final 6-bit number <code>111001</code>:</p>
 
-<p><img src="../../../19s/labs/6/splitter_intro.png" width="300" /></p>
+<p><img src="./splitter_intro.png" width="300" /></p>
 
 <p>Click on a splitter to get its menu in the sidebar. You can use this menu to determine the number of arms on your splitter and how many bits should go on each arm. For the circuit above, the left splitter's menu looks like this:</p>
 
-<p><img src="../../../19s/labs/6/left_split_menu.png" width="300" /></p>
+<p><img src="./left_split_menu.png" width="300" /></p>
 
 <p>While the right splitter's menu looks like this:</p>
 
-<p><img src="../../../19s/labs/6/right_split_menu.png" width="300" /></p>
+<p><img src="./right_split_menu.png" width="300" /></p>
 
 <p><strong>Notice that there's an option called</strong> <code>facing</code>. You can use this to rotate your splitter. Above, see that the splitter on the right is facing West while the splitter on the left is facing East.</p>
 
 <p>If you see an error wire that is orange, this means that your bit width in does not match your bit width out. Make sure that if you're connecting two components with a wire, you correctly set the bit width in that component's menu.</p>
 
-<p><img src="../../../19s/labs/6/orange_error.png" alt="" /></p>
+<p><img src="./orange_error.png" alt="" /></p>
 
 <h4 id="tunnels">Tunnels</h4>
 
 <p>A tunnel allows you draw an "invisible wire" to bind two points together. Tunnels are grouped by case-sensitive labels give to a wire. They are used to connect wires like so:</p>
 
-<p><img src="../../../19s/labs/6/tunnels1.png" alt="" /></p>
+<p><img src="./tunnels1.png" alt="" /></p>
 
 <p>Which has an effect such as the following:</p>
 
-<p><img src="../../../19s/labs/6/tunnels2.png" alt="" /></p>
+<p><img src="./tunnels2.png" alt="" /></p>
 
 <p>Some care should be taken as to which wires are connected with tunnels to which other wires, such as in this case:</p>
 
-<p><img src="../../../19s/labs/6/tunnels3.png" alt="" /></p>
+<p><img src="./tunnels3.png" alt="" /></p>
 
 <p>Which in turn has the following effect:</p>
 
-<p><img src="../../../19s/labs/6/tunnels4.png" alt="" /></p>
+<p><img src="./tunnels4.png" alt="" /></p>
 
 <p>We <em>strongly</em> recommend you use tunnels with Logisim, because they make your circuits much cleaner looking, and therefore easier to debug.</p>
 
@@ -94,19 +94,19 @@ pre {
 
 <p>When changing the width of a wire, you should use a bit extender for clarity. For example, consider the following implementation of extending an 8-bit wire into a 16-bit wire:</p>
 
-<p><img src="../../../19s/labs/6/extend1.png" alt="" /></p>
+<p><img src="./extend1.png" alt="" /></p>
 
 <p>Whereas the following is much simpler, easier to read, and less error-prone:</p>
 
-<p><img src="../../../19s/labs/6/extend2.png" alt="" /></p>
+<p><img src="./extend2.png" alt="" /></p>
 
 <p>Additionally consider the case of throwing out bits. In this example, an 8-bit wire is being converted into a 4-bit wire by throwing out the other bits:</p>
 
-<p><img src="../../../19s/labs/6/extend3.png" alt="" /></p>
+<p><img src="./extend3.png" alt="" /></p>
 
 <p>Despite the implications of its name, a bit extender can also do this same operation:</p>
 
-<p><img src="../../../19s/labs/6/extend4.png" alt="" /></p>
+<p><img src="./extend4.png" alt="" /></p>
 
 <h3 id="part-4-practice-with-splitters">Part 4: Practice with Splitters</h3>
 
