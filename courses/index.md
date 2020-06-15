@@ -39,4 +39,16 @@ title: Courses Materials.
 <H3>CA 2020 Labs</H3>
 <ul>
 <li><a href="CA2020-labs/13/index.html" target="_blank">Lab 13</a></li>
+<li><a href="CA2020-labs/12/index.html" target="_blank">Lab 12</a></li>
+<li><a href="CA2020-labs/11/index.html" target="_blank">Lab 11</a></li>
+<li><a href="CA2020-labs/10/index.html" target="_blank">Lab 10</a></li>
+<li><a href="CA2020-labs/9/index.html" target="_blank">Lab 9</a></li>
+<li><a href="CA2020-labs/8/index.html" target="_blank">Lab 8</a></li>
+<li><a href="CA2020-labs/7/index.html" target="_blank">Lab 7</a></li>
+<li><a href="CA2020-labs/6/index.html" target="_blank">Lab 6</a></li>
+<li><a href="CA2020-labs/5/index.html" target="_blank">Lab 5</a></li>
+<li><a href="CA2020-labs/4/index.html" target="_blank">Lab 4</a></li>
+<li><a href="CA2020-labs/3/index.html" target="_blank">Lab 3</a></li>
+<li><a href="CA2020-labs/2/index.html" target="_blank">Lab 2</a></li>
+<li><a href="CA2020-labs/1/index.html" target="_blank">Lab 1</a></li>
 </ul>
