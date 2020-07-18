@@ -17,7 +17,7 @@ mathjax: true
 <h2><a class="contact"><font color="maroon">How to Contact Us</font></a></h2>
 <p>Should you have any question, please drop an email to <q>toast.lab <<i>the-at-sign</i>> outlook.com</q>.</p>
 
-
+<p>Our Lab is located at SIST Building 1A, ShanghaiTech University, 393 Middle Huaxia Road, Pudong District, Shanghai, China 201210 (&#19978;&#28023;&#31185;&#25216;&#22823;&#23398;&#20449;&#24687;&#23398;&#38498;&#49;&#21495;&#27004;&#65;&#21306;&#65292;&#19978;&#28023;&#24066;&#28006;&#19996;&#26032;&#21306;&#21326;&#22799;&#20013;&#36335;&#51;&#57;&#51;&#21495;).</p>
 
 
 <h2><a class="contact"><font color="maroon">Useful Links</font></a></h2>
