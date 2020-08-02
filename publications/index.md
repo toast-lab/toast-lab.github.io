@@ -10,14 +10,14 @@ title: Publications of Toast Lab
 <span class="title">"Crab-tree: A Crash Recoverable B+-tree Variant for Persistent Memory with ARMv8 Architecture"</span>,
 <span class="publisher"><i>Accepted </i>by ACM Transactions on Embedded Computing Systems (TECS)</span>, April, <span class="year">2020</span>.
 
-[<a  href="https://dl.acm.org/doi/abs/10.1145/3396236">link</a>]&nbsp;
+[<a  href="https://dl.acm.org/doi/abs/10.1145/3396236" target="_blank">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 
 <li>
 <span class="author">Matheus E. Garbelini, Chundong Wang, Sudipta Chattopadhyay, Sumei Sun, Ernest Kurniawan</span>,
 <span class="title">"SweynTooth: Unleashing Mayhem over Bluetooth Low Energy"</span>,
-<span class="publisher">Proceedings of the 2020 USENIX Annual Technical Conference (USENIX ATC '20)</span>, pp. 911&ndash925, July, <span class="year">2020</span>.
+<span class="publisher">Proceedings of the 2020 USENIX Annual Technical Conference (USENIX ATC '20)</span>, pp. 911&ndash;925, July, <span class="year">2020</span>.
 
 [<a  href="https://www.usenix.org/conference/atc20/presentation/garbelini" target="_blank">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
