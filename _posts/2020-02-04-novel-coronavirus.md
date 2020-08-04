@@ -5,7 +5,7 @@ Edit: 2020-02-04
 mathjax: true
 mermaid: true
 status: Completed
-tags: News
+tags: Notice
 categories: General
 description: The commencement of Toast Lab would be postponed.
 ---

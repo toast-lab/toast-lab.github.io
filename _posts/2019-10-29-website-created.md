@@ -4,7 +4,7 @@ commentable: false
 Edit: 2019-10-29
 mathjax: true
 mermaid: true
-tags: News
+tags: Notice
 categories: General
 description: The website of Toast Lab is online today.
 ---

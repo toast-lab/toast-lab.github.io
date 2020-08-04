@@ -5,7 +5,7 @@ date: 2020/08/04
 Edit: 2020-08-04
 mathjax: true
 mermaid: true
-tags: News
+tags: Notice
 status: Completed
 categories: General
 description: A mirror site is created for Toast Lab.
