@@ -4,8 +4,8 @@ description: <span class="nobr"><font color="yellow">T</font>o</span> <font colo
 #description: <mark>T</mark>o <mark>o</mark>rchestrate <mark>a</mark>rchitecture, <mark>s</mark>ystem, and <mark>t</mark>heory for computing.
 baseurl: ""
 #change the baseurl to "" if you are using it as your user GitHub Pages
-url: "https://toast-lab.github.io"  
-#url: "https://toast-lab.tech"  
+#url: "https://toast-lab.github.io"  
+url: "https://toast-lab.tech"  
 
 
 # GitHub User settings
