@@ -3,6 +3,10 @@ layout: info
 title: Members of Toast Lab
 ---
 
+
+![Dinner Party of Toast Lab for the New Year of 2021](./photos/2021-new-year.jpg)
+<center style="font-size:14px;color:#C0C0C0;text-decoration:underline">The dinner party for the New Year of 2021</center> 
+
 <h2><a name="/people/faculty"><font color="darkred">Faculty</font></a></h2>
 <div class="news-row-left"><img src="./photos/wangcd.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="prof">
