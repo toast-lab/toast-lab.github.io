@@ -4,7 +4,7 @@ title: Members of Toast Lab
 ---
 
 
-![Dinner Party of Toast Lab for the New Year of 2021](./photos/2021-new-year.jpg)
+![Dinner Party of Toast Lab for the New Year of 2021](./photos/2021-New-Year.jpg "Dinner Party")
 <center style="font-size:14px;color:#C0C0C0;text-decoration:underline">The dinner party for the New Year of 2021</center> 
 
 <h2><a name="/people/faculty"><font color="darkred">Faculty</font></a></h2>
