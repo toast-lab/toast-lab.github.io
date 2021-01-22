@@ -6,7 +6,7 @@ mathjax: true
 mermaid: true
 tags: News
 categories: General
-description: A Seminar on the Tenet of Memory
+description: A Seminar about the Tenet of Memory
 ---
 
 <p>Chundong Wang gave a seminar titled <i>The Tenet of Memory: Following the Prestige</i> at <a href="https://www.ecnu.edu.cn/" target="_blank">East China Normal University (ECNU)</a>. In the seminar, Chundong presented why the conventional memory hierarchy plays an important role in a computing system and how the promising non-volatile memory (NVM) technologies can be used to revolutionize it.</p>
