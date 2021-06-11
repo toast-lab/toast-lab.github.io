@@ -1,7 +1,7 @@
 ---
 title: Chundong Visited SDU and OUC in Qingdao
 commentable: false
-Edit: 2021-01-15
+Edit: 2021-06-07
 mathjax: true
 mermaid: true
 tags: News
