@@ -26,7 +26,7 @@ file system and storage, operating systems, software testing, etc. Through this 
 	<li>CROSSTALK: Speculative Data Leaks Across Cores Are Real (<i>IEEE S&P 2021</i>)</li>
 	<li>ArchTM: Architecture-Aware, High Performance Transaction for Persistent Memory (<i>USENIX FAST 2021</i>)</li>
 	<li>Clobber-NVM: Log Less, Re-execute More (<i>ASPLOS 2021</i>)</li>
-	<li>Dead Page and Dead Block Predictors: Cleaning TLBs and Caches Together(<i>HPCA 2021</i>)</li>
+	<li>Dead Page and Dead Block Predictors: Cleaning TLBs and Caches Together (<i>HPCA 2021</i>)</li>
 </ul>
 
 
