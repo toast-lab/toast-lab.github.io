@@ -1,5 +1,5 @@
 ---
-title: Prof. Yongxin Zhu Made a Seminar at ShanghaiTech
+title: Prof. Yongxin Zhu's Visit to Toast Lab with a Seminar
 commentable: false
 Edit: 2021-04-16
 mathjax: true
@@ -9,10 +9,14 @@ categories: General
 description: A Seminar on Custom Computing for Big Data
 ---
 
-<p>Professor Yongxin Zhu gave a seminar titled <i>Custom Computing for Ultra Large Scale Big Data Streams from Giant Scientific Apparatuses</i> at School of Information Science and Technology. During the seminar, Professor Zhu shared his distinguished experiences of processing ultra-scale data 
+<p>Professor Yongxin Zhu visited Toast Lab and gave a seminar 
+at the School of Information Science and Technology (SIST), ShanghaiTech University on 16 April. 
+The seminar was titled <i>Custom Computing for Ultra Large Scale Big Data Streams from Giant Scientific Apparatuses</i>.
+During the seminar, Professor Zhu shared his distinguished experiences of processing ultra-scale data 
 from Shanghai Synchrotron Radiation Facility (SSRF, &#19978;&#28023;&#20809;&#28304;) and Five-Hundred-meter Aperture Spherical radio Telescope (FAST, &#20013;&#22269;&#22825;&#30524;) with multiple effectual solutions.</p>
 
-<p>Professor Zhu is a full professor with Shanghai Advanced Research Institute, Chinese Academy of Sciences (CAS) in 2017. He is also an adjunct professor with the School of Microelectronics at the Shanghai Jiao Tong University. He was invited by Chundong for this seminar, 
-which is one of the series of SIST Seminars supported by SIST, ShanghaiTech.</p>
+<p>Professor Zhu is a full professor with Shanghai Advanced Research Institute, Chinese Academy of Sciences (CAS) in 2017. He is also an adjunct professor with the School of Microelectronics at the Shanghai Jiao Tong University. 
+He has published over 170 English journal and conference papers, 50 Chinese journal papers, and 20 China patent approvals in the areas of computer architecture, embedded systems and big data processing. 
+The seminar is one of the series of SIST Seminars supported by SIST, ShanghaiTech.</p>
 
 
