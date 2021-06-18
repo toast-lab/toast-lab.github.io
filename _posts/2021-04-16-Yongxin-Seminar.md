@@ -15,7 +15,7 @@ The seminar was titled <i>Custom Computing for Ultra Large Scale Big Data Stream
 During the seminar, Professor Zhu shared his distinguished experiences of processing ultra-scale data 
 from Shanghai Synchrotron Radiation Facility (SSRF, &#19978;&#28023;&#20809;&#28304;) and Five-Hundred-meter Aperture Spherical radio Telescope (FAST, &#20013;&#22269;&#22825;&#30524;) with multiple effectual solutions.</p>
 
-<p>Professor Zhu is a full professor with Shanghai Advanced Research Institute, Chinese Academy of Sciences (CAS) in 2017. He is also an adjunct professor with the School of Microelectronics at the Shanghai Jiao Tong University. 
+<p>Professor Zhu has been a full professor with Shanghai Advanced Research Institute, Chinese Academy of Sciences (CAS) since 2017. He is also an adjunct professor with the School of Microelectronics at the Shanghai Jiao Tong University. 
 He has published over 170 English journal and conference papers, 50 Chinese journal papers, and 20 China patent approvals in the areas of computer architecture, embedded systems and big data processing. 
 The seminar is one of the series of SIST Seminars supported by SIST, ShanghaiTech.</p>
 
