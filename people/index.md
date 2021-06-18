@@ -33,3 +33,9 @@ title: Members of Toast Lab
 
 <div class="clear"></div>
 <hr color="red">
+
+
+<h2><a name="/people/alumni"><font color="darkred">Alumni</font></a></h2>
+
+<p><strong>Rui Wang</strong> (&#x6c6a;&#x9510;), B.Eng. 2021, Tokyo Tech (&#x6771;&#x4eac;&#x5de5;&#x696d;&#x5927;&#x5b66;) for postgraduate study </p>
+
