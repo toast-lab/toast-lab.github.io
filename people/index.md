@@ -20,13 +20,13 @@ title: Members of Toast Lab
 <h2><a name="/people/students"><font color="darkred">Students</font></a></h2>
 <div class="news-row-left"><img src="./photos/yecn.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-yecn">
-<p><strong>Chongnan Ye</strong></font> (&#21494;&#23815;&#21335;), majoring in Computer Science at ShanghaiTech University from 2016 to 2020, has joined Toast Lab for the final year project of undergraduate programme and Master's degree in 2020. His research interests are on the fundamental concepts of computing, data management and analytics.</p>
+<p><strong>Chongnan Ye</strong> (&#21494;&#23815;&#21335;), majoring in Computer Science at ShanghaiTech University from 2016 to 2020, has joined Toast Lab for the final year project of undergraduate programme and Master's degree in 2020. His research interests are on the fundamental concepts of computing, data management and analytics.</p>
 </div>
 
 
 <div class="news-row-left"><img src="./photos/jiangqsh.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-jiangqsh">
-<p><strong>Qisheng Jiang</strong></font> (&#23004;&#20854;&#21319;), who received a bachelor's degree from Tongji University, will start the graduate program at ShanghaiTech University in 2021. His research interests include computer architecture, persistent memory, and key-value storage.</p>
+<p><strong>Qisheng Jiang</strong> (&#23004;&#20854;&#21319;), who received a bachelor's degree from Tongji University, will start the graduate program at ShanghaiTech University in 2021. His research interests include computer architecture, persistent memory, and key-value storage.</p>
 </div>
 
 
