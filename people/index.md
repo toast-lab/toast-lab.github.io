@@ -25,12 +25,12 @@ title: Members of Toast Lab
 
 <div class="news-row-left"><img src="./photos/xuqing.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-xuqing">
-<p><strong>Qing Xu</strong> (&#x8bb8;&#x6674;) obtained her B.Eng. degree from Hunan Normal University. She would join Toast Lab for postgraduate study in 2021. Her research interests include file systems and persistent memory.</p>
+<p><strong>Qing Xu</strong> (&#x8bb8;&#x6674;) obtained her B.Eng. degree from Hunan Normal University (&#x6e56;&#x5357;&#x5e08;&#x8303;&#x5927;&#x5b66;). She would join Toast Lab for postgraduate study in 2021. Her research interests include file systems and persistent memory.</p>
 </div>
 
 <div class="news-row-left"><img src="./photos/jiangqsh.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-jiangqsh">
-<p><strong>Qisheng Jiang</strong> (&#23004;&#20854;&#21319;), who received a bachelor's degree from Tongji University, will start the graduate program at ShanghaiTech University in 2021. His research interests include computer architecture, persistent memory, and key-value store.</p>
+<p><strong>Qisheng Jiang</strong> (&#23004;&#20854;&#21319;), who received a bachelor's degree from Tongji University (&#x540c;&#x6d4e;&#x5927;&#x5b66;), will start the graduate program at ShanghaiTech University in 2021. His research interests include computer architecture, persistent memory, and key-value store.</p>
 </div>
 
 
