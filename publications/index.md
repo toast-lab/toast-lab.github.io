@@ -5,10 +5,21 @@ title: Publications of Toast Lab
 <h3>Selected Publications</h3>
 <ol>
 
+
+<li>
+<span class="author">Chundong Wang, Gunavaran Brihadiswaran, Xingbin Jiang, Sudipta Chattopadhyay</span>,
+<span class="title">"Circ-Tree: A B+-Tree Variant with Circular Design for Persistent Memory"</span>,
+<span class="publisher"><i>Accepted </i>by IEEE Transactions on Computers (TC)</span>, December, <span class="year">2020</span>.
+
+[<a  href="https://ieeexplore.ieee.org/document/9312478" target="_blank">link</a>]&nbsp;
+(<span class="hlnote0">Full Paper</span>)&nbsp;
+</li>
+
+
 <li>
 <span class="author">Chundong Wang, Sudipta Chattopadhyay, Gunavaran Brihadiswarn</span>,
 <span class="title">"Crab-tree: A Crash Recoverable B+-tree Variant for Persistent Memory with ARMv8 Architecture"</span>,
-<span class="publisher"><i>Accepted </i>by ACM Transactions on Embedded Computing Systems (TECS)</span>, April, <span class="year">2020</span>.
+<span class="publisher">ACM Transactions on Embedded Computing Systems (TECS)</span>, <span>Volume 19, Issue 5, Article 34 (November 2020).</span>
 
 [<a  href="https://dl.acm.org/doi/abs/10.1145/3396236" target="_blank">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
