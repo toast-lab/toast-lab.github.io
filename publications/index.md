@@ -19,7 +19,7 @@ title: Publications of Toast Lab
 <li>
 <span class="author">Chundong Wang, Sudipta Chattopadhyay, Gunavaran Brihadiswarn</span>,
 <span class="title">"Crab-tree: A Crash Recoverable B+-tree Variant for Persistent Memory with ARMv8 Architecture"</span>,
-<span class="publisher">ACM Transactions on Embedded Computing Systems (TECS)</span>, <span>Volume 19, Issue 5, Article 34 (November 2020).</span>
+<span class="publisher">ACM Transactions on Embedded Computing Systems (TECS)</span>, <span>Volume 19, Issue 5, Article 35, November, 2020.</span>
 
 [<a  href="https://dl.acm.org/doi/abs/10.1145/3396236" target="_blank">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
@@ -52,6 +52,7 @@ title: Publications of Toast Lab
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 
+<!--
 <li>
 <span class="author">Jun Yang, Qingsong Wei, Cheng Chen, Chundong Wang, Khai Leong Yong, Bingsheng He</span>,
 <span class="title">"NV-Tree: Reducing Consistency Cost for NVM-based Single Level Systems"</span>,
@@ -60,5 +61,7 @@ title: Publications of Toast Lab
 [<a  href="https://www.usenix.org/conference/fast15/technical-sessions/presentation/yang" target="_blank">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
+-->
+
 </ol>
 <p>... <a href="./papers.html" target="_blank">Full Publication List</a> </p>
