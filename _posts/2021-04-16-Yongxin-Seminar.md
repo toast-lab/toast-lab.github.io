@@ -4,6 +4,7 @@ commentable: false
 Edit: 2021-04-16
 mathjax: true
 mermaid: true
+status: Completed
 tags: News
 categories: General
 description: A Seminar on Custom Computing for Big Data

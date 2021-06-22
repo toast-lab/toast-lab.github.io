@@ -4,6 +4,7 @@ commentable: false
 Edit: 2020-09-04
 mathjax: true
 mermaid: true
+status: Completed
 tags: News
 categories: Publication
 description: Our paper about Isle-Tree is accepted by ICCD 2020.

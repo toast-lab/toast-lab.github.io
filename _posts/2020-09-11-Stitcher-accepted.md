@@ -4,6 +4,7 @@ commentable: false
 Edit: 2020-09-11
 mathjax: true
 mermaid: true
+status: Completed
 tags: News
 categories: Publication
 description: Our paper about IoT digital forensics investigation is accepted by FSIDI.

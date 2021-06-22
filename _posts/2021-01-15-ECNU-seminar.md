@@ -4,6 +4,7 @@ commentable: false
 Edit: 2021-01-15
 mathjax: true
 mermaid: true
+status: Completed
 tags: News
 categories: General
 description: A Seminar about the Tenet of Memory

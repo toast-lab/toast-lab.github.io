@@ -4,6 +4,7 @@ commentable: false
 Edit: 2020-12-28
 mathjax: true
 mermaid: true
+status: Completed
 tags: News
 categories: Publication
 description: A paper about a B+-tree with circular node for NVM is accepted by IEEE TC.
