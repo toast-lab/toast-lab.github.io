@@ -3,7 +3,7 @@ layout: info
 title: Members of Toast Lab
 ---
 
-<div class="news-row-left"><img src="./photos/2021-New-Year.jpg" height="300" alt="Dinner Party of Toast Lab" /></div>
+<div class="news-row-left"><img src="./photos/2021-December.jpg" height="300" alt="Taken in December 2021" /></div>
 <center style="font-size:14px;color:#99004C;text-decoration:underline">The Dinner Party of Toast Lab for the New Year of 2021</center> 
 
 <h2><a name="/people/faculty"><font color="darkred">Faculty</font></a></h2>
