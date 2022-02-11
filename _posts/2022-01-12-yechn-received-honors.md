@@ -1,5 +1,5 @@
 ---
-title: Two Honors Received by Chongnan Ye
+title: Chongnan Received Two Honors
 commentable: false
 Edit: 2022-01-12
 mathjax: true
