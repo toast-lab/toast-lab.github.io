@@ -7,7 +7,7 @@ mermaid: true
 status: Completed
 tags: News
 categories: Publication
-description: Our paper about LSM-tree is accepted by DAC 2022.
+description: Our paper on LSM-tree with Reduced Fsyncs is accepted by DAC 2022.
 ---
 
 <p>Our paper titled "NobLSM: An LSM-tree with Non-blocking Writes for SSDs" is accepted by <a href="https://www.dac.com/" style="text-decoration: none;" target="_blank">the 59th Design Automation Conference (DAC 2022)</a>. In the paper, we develop an LSM-tree variant named NobLSM which is without blocking fsyncs on the critical path of major compaction.</p>
