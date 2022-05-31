@@ -47,7 +47,7 @@ title: Members of Toast Lab
 <h2><a name="/people/alumni"><font color="darkred">Alumni</font></a></h2>
 
 <p><strong>Rui Wang</strong> (&#x6c6a;&#x9510;), B.Eng. 2021, Tokyo Tech (&#x6771;&#x4eac;&#x5de5;&#x696d;&#x5927;&#x5b66;) for postgraduate study.</p>
-<p><strong>Haoran Dang</strong> (&#x515a;&#x6d69;&#7136;), B.Eng. 2022, ICT, CAS (&#x4e2d;&#x79d1;&#x9662;&#x8ba1;&#x7b97;&#x6240;) for postgraduate study.</p>
+<p><strong>Haoran Dang</strong> (&#x515a;&#x6d69;&#x7136;), B.Eng. 2022, ICT, CAS (&#x4e2d;&#x79d1;&#x9662;&#x8ba1;&#x7b97;&#x6240;) for postgraduate study.</p>
 
 <div class="clear"></div>
 <hr color="red">
