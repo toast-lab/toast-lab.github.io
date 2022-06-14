@@ -1,5 +1,5 @@
 ---
-title: Chen Meng and Jia Lei Defended Their Dissertations
+title: Chen Meng and Jia Lei Defended Dissertations
 commentable: false
 Edit: 2022-06-13
 mathjax: true
