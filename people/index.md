@@ -39,6 +39,27 @@ title: Members of Toast Lab
 </div>
 
 
+<div class="news-row-left"><img src="./photos/chenmeng.jpeg" height="150" alt="" /></div>
+<div class="news-row-right2" id="student-chenmeng">
+<p><strong>Meng Chen</strong> (&#38472;&#28635;) is a postgraduate student majoring in computer science in the TOAST lab at ShanghaiTech University. He received his bachelor's degree from ShanghaiTech in 2022. His research interest lies in comouter systems, especially in systematic simulation and storage system.</p>
+</div>
+
+
+
+<div class="news-row-left"><img src="./photos/jialei.jpg" height="150" alt="" /></div>
+<div class="news-row-right2" id="student-jialei">
+<p><strong>Lei Jia</strong> (&#36158;&#30922;) graduated from ShanghaiTech University in 2022 with a Bachelor's degree in Computer Science. He would join Toast Lab for postgraduate study. His research interests include computer architecture, filesystem and NoSQL database.</p>
+</div>
+
+
+
+<div class="news-row-left"><img src="./photos/yanxin.jpeg" height="150" alt="" /></div>
+<div class="news-row-right2" id="student-yanxin">
+<p><strong>Xin Yan</strong> (&#37154;&#26032;), who received a Bachelor's degree from Northeastern University (&#19996;&#21271;&#22823;&#23398;), will start his postgraduate program at ShanghaiTech University in 2022. His research interests include virtualization, file system, and database.</p>
+</div>
+
+
+
 
 <div class="clear"></div>
 <hr color="red">

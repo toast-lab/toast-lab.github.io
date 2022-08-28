@@ -9,9 +9,9 @@ title: Publications of Toast Lab
 <li>
 <span class="author">Haoran Dang, Chongnan Ye, Yanpeng Hu, Chundong Wang</span>,
 <span class="title">"NobLSM: An LSM-tree with Non-blocking Writes for SSDs"</span>,
-<span class="publisher"><i>Accepted </i>by the 59th Annual Design Automation Conference (DAC)</span>, February, <span class="year">2022</span>.
+<span class="publisher">Proceedings of the 59th Annual Design Automation Conference</span>, pp. 403&ndash;408, July, <span class="year">2022</span>.
 
-[<a  href="https://www.dac.com/" target="_blank">link</a>]&nbsp;
+[<a  href="https://doi.org/10.1145/3489517.3530470" target="_blank">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 
