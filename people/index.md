@@ -53,11 +53,6 @@ title: Members of Toast Lab
 
 
 
-<div class="news-row-left"><img src="./photos/yanxin.jpeg" height="150" alt="" /></div>
-<div class="news-row-right2" id="student-yanxin">
-<p><strong>Xin Yan</strong> (&#37154;&#26032;), who received a Bachelor's degree from Northeastern University (&#19996;&#21271;&#22823;&#23398;), will start his postgraduate program at ShanghaiTech University in 2022. His research interests include virtualization, file system, and database.</p>
-</div>
-
 
 
 
