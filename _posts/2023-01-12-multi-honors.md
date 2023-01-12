@@ -14,6 +14,6 @@ description: Congratulations to All!
 
 <p>Chundong is awarded the honors of <b>Excellent Mentor</b> of <a href="https://kedao.shanghaitech.edu.cn/" target="_blank">Kedao College, ShanghaiTech</a> and <b>Outstanding Staff</b> of SIST, ShanghaiTech.</p>
 
-<p>We wish everyone a happy, healthy, and prosperous Chinese New Year.</p>
+<p>At the end of the Year of the Tiger (&#22764;&#23493;&#34382;&#24180;), we wish everyone a happy, healthy, and prosperous Chinese New Year of the Rabbit (&#30328;&#21359;&#20820;&#24180;).</p>
 
 
