@@ -1,7 +1,7 @@
 ---
 title: About Toast Lab
 layout: info
-Edit: 2018-11-14
+Edit: 2022-01-21
 toc: false
 commentable: false
 protected: true
@@ -24,3 +24,5 @@ mathjax: true
 <p><a href="http://www.shanghaitech.edu.cn/" target="_blank">ShanghaiTech University</a><p>
 <p><a href="http://sist.shanghaitech.edu.cn/" target="_blank">The School of Information Science and Technology (SIST) at ShanghaiTech University</a><p>
 <p><a href="https://www.ccf.org.cn/Academic_Evaluation/By_category/" target="_blank">CCF Ranking List of Conferences and Journals</a></p>
+<p><a href="https://scholar.google.com/citations?user=a-79PFIAAAAJ" target="_blank">Chundong Wang's Google Scholar Profile</a></p>
+<p><a href="https://dblp.org/pid/09/11157.html" target="_blank">Chundong Wang's DBLP Record</a></p>
