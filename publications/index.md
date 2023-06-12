@@ -76,4 +76,4 @@ title: Publications of Toast Lab
 -->
 
 </ol>
-<p>... <a href="./papers.html" target="_blank">Full Publication List</a> </p>
+<p>&#x261E;&#x261E;&#x261E; <a href="./papers.html" target="_blank">Full Publication List</a> </p>
