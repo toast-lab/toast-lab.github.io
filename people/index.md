@@ -60,8 +60,16 @@ title: Members of Toast Lab
 </div>
 
 
+<div class="news-row-left"><img src="./photos/maojq.jpg" height="150" alt="" /></div>
+<div class="news-row-right2" id="student-maojq">
+<p><strong>Junqi Mao</strong> (&#27611;&#20426;&#29738;), who received a bachelor's degree from Zhejiang University (&#27993;&#27743;&#22823;&#23398;), will start the graduate program at ShanghaiTech University in 2023. His research interests include computer architecture and Artificial Intelligence.</p>
+</div>
 
 
+<div class="news-row-left"><img src="./photos/yangyx.jpg" height="150" alt="" /></div>
+<div class="news-row-right2" id="student-yangyx">
+<p><strong>Yunxin Yang</strong>(&#26472;&#26112;&#26133;), who received a bachelor's degree from Harbin Institute of Technology (Shenzhen) (&#21704;&#23572;&#28392;&#24037;&#19994;&#22823;&#23398;(&#28145;&#22323;)), will start the graduate program at ShanghaiTech University in 2023. His research interests include key-value store, file system and database.  </p>
+</div>
 
 <div class="clear"></div>
 <hr color="red">
