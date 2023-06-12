@@ -18,10 +18,13 @@ title: Members of Toast Lab
 <hr color="red">
 
 <h2><a name="/people/students"><font color="darkred">Students</font></a></h2>
+
+<!--
 <div class="news-row-left"><img src="./photos/yecn.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-yecn">
 <p><strong>Chongnan Ye</strong> (&#21494;&#23815;&#21335;), majoring in Computer Science at ShanghaiTech University from 2016 to 2020, has joined Toast Lab for the final year project of undergraduate programme and Master's degree in 2020. His research interests are on the fundamental concepts of computing, data management and analytics.</p>
 </div>
+-->
 
 <div class="news-row-left"><img src="./photos/xuqing.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-xuqing">
@@ -51,6 +54,10 @@ title: Members of Toast Lab
 <p><strong>Lei Jia</strong> (&#36158;&#30922;) graduated from ShanghaiTech University in 2022 with a Bachelor's degree in Computer Science. He would join Toast Lab for postgraduate study. His research interests include computer architecture, filesystem and NoSQL database.</p>
 </div>
 
+<div class="news-row-left"><img src="./photos/zhuli.jpg" height="150" alt="" /></div>
+<div class="news-row-right2" id="student-zhuli">
+<p><strong>Li Zhu</strong> (&#26417;&#33673;) graduated from Shanghaitech University in 2023 with a bachelor's degree in Computer Science. She has joined Toast Lab for postgraduate study. Her research interests include SQL and NoSQL database.</p>
+</div>
 
 
 
@@ -62,8 +69,9 @@ title: Members of Toast Lab
 
 <h2><a name="/people/alumni"><font color="darkred">Alumni</font></a></h2>
 
-<p><strong>Rui Wang</strong> (&#x6c6a;&#x9510;), B.Eng. 2021, Tokyo Tech (&#x6771;&#x4eac;&#x5de5;&#x696d;&#x5927;&#x5b66;) for postgraduate study.</p>
+<p><strong>Chongnan Ye</strong> (&#21494;&#23815;&#21335;), M.Bng. 2023, Biren Technology (&#22721;&#20190;&#31185;&#25216;) 
 <p><strong>Haoran Dang</strong> (&#x515a;&#x6d69;&#x7136;), B.Eng. 2022, ICT, CAS (&#x4e2d;&#x79d1;&#x9662;&#x8ba1;&#x7b97;&#x6240;) for postgraduate study.</p>
+<p><strong>Rui Wang</strong> (&#x6c6a;&#x9510;), B.Eng. 2021, Tokyo Tech (&#x6771;&#x4eac;&#x5de5;&#x696d;&#x5927;&#x5b66;) for postgraduate study.</p>
 
 <div class="clear"></div>
 <hr color="red">
