@@ -69,7 +69,7 @@ title: Members of Toast Lab
 
 <div class="news-row-left"><img src="./photos/yangyx.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-yangyx">
-<p><strong>Yunxin Yang</strong>(&#26472;&#26112;&#26133;), who received a bachelor's degree from Harbin Institute of Technology (Shenzhen) (&#21704;&#23572;&#28392;&#24037;&#19994;&#22823;&#23398;(&#28145;&#22323;)), will start the graduate program at ShanghaiTech University in 2023. His research interests include key-value store, file system and database.  </p>
+<p><strong>Yunxin Yang</strong> (&#26472;&#26112;&#26133;), who received a bachelor's degree from Harbin Institute of Technology (Shenzhen) (&#21704;&#23572;&#28392;&#24037;&#19994;&#22823;&#23398;(&#28145;&#22323;)), will start the graduate program at ShanghaiTech University in 2023. His research interests include key-value store, file system and database.  </p>
 </div>
 
 <div class="clear"></div>
