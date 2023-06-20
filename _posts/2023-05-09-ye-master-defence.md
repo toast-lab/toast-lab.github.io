@@ -1,5 +1,5 @@
 ---
-title: Ye Chongnan Defended Her Dissertation
+title: Ye Chongnan Defended His Dissertation
 commentable: false
 Edit: 2023-05-09
 mathjax: true
