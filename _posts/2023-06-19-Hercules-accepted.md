@@ -4,6 +4,7 @@ commentable: false
 Edit: 2023-06-19
 mathjax: true
 mermaid: true
+status: Completed
 tags: News
 categories: Publication
 description: A paper about atomic durability with pmem is accepted by ACM TECS.
