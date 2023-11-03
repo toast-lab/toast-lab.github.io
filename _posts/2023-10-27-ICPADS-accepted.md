@@ -12,4 +12,4 @@ description: A paper about shortening tail latency for SQLite is accepted by IEE
 
 <p>Our paper titled "Asynchronous and Adaptive Checkpoint for WAL-Based Data Storage Systems" is accepted by <a href="https://ieee-cybermatics.org/2023/icpads/index.php" style="text-decoration: none;" target="_blank">the 29th IEEE International Conference on Parallel and Distributed Systems (ICPADS 2023)</a>. In the paper, we optimize the checkpoint operation of SQLite and shorten the critical path through employing asynchronous I/O model and workload-adaptive checkpoint strategy. </p>
 
-<p>The first author of this paper, Ms Li Zhu, conducted this research project after finishing the fina-year project (FYP) and before graduating with the bachelor's degree. Mr Yanpeng Hu and Chundong are co-authors.</p>
+<p>This paper has been accepted as a Regular Research Paper (full paper) with an acceptance rate of 19.44% (196/1008). The first author of this paper, Ms Li Zhu, conducted this research project after finishing the fina-year project (FYP) and before graduating with the bachelor's degree. Mr Yanpeng Hu and Chundong are co-authors.</p>
