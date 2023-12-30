@@ -16,5 +16,5 @@ description: Congratulations to All!
 
 <p>Chundong is awarded the honor of <b>Excellent Mentor</b> (&#20248;&#31168;&#20070;&#38498;&#23548;&#24072;) of <a href="https://shangdao.shanghaitech.edu.cn/" target="_blank">Shangdao College, ShanghaiTech</a> (&#19978;&#28023;&#31185;&#25216;&#22823;&#23398;&#19978;&#36947;&#20070;&#38498;).</p>
 
-<p>We wish you a joyous new year full of health, happiness, and success.</p>
+<p>At the end of 2023, we wish everyone a joyous new year full of health, happiness, and success.</p>
 
