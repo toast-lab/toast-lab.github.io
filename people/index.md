@@ -63,7 +63,7 @@ title: Members of Toast Lab
 
 <div class="news-row-left"><img src="./photos/zhuli.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-zhuli">
-<p><strong>Li Zhu</strong> (&#26417;&#33673;) graduated from Shanghaitech University in 2023 with a bachelor's degree in Computer Science. She has joined Toast Lab for postgraduate study. Her research interests include SQL and NoSQL database.</p>
+<p><strong>Li Zhu</strong> (&#26417;&#33673;) graduated from ShanghaiTech University in 2023 with a bachelor's degree in Computer Science. She has joined Toast Lab for postgraduate study. Her research interests include SQL and NoSQL database.</p>
 </div>
 
 
@@ -81,7 +81,7 @@ title: Members of Toast Lab
 
 <div class="news-row-left"><img src="./photos/cuihj.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-cuihj">
-<p><strong>Hanjia Cui</strong> (&#23828;&#21547;&#20339;) graduated from Shanghaitech University in 2024 with a Bachelor's degree in Computer Science. She has joined Toast Lab for postgraduate study. Her research interests include persistent memory, computer architecture and storage system.</p>
+<p><strong>Hanjia Cui</strong> (&#23828;&#21547;&#20339;) graduated from ShanghaiTech University in 2024 with a Bachelor's degree in Computer Science. She has joined Toast Lab for postgraduate study. Her research interests include persistent memory, computer architecture and storage system.</p>
 </div>
 
 
