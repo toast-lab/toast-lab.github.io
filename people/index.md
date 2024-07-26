@@ -85,7 +85,7 @@ title: Members of Toast Lab
 </div>
 
 
-<div class="news-row-left"><img src="./photos/guokc.jpg" height="150" alt="" /></div>
+<div class="news-row-left"><img src="./photos/guokc.jpg" height="180" alt="" /></div>
 <div class="news-row-right2" id="student-guokc">
 <p><strong>Kunchang Guo</strong> (&#37101;&#22372;&#26124;) graduated from Nankai University (&#21335;&#24320;&#22823;&#23398;) with a B.Eng. degree and will join Toast Lab for postgraduate study in 2024. His research interests include computer architecture and storage system. </p>
 </div>
