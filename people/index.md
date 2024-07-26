@@ -100,7 +100,7 @@ title: Members of Toast Lab
 <p><strong>Qing Xu</strong> (&#35768;&#26228;), M.Eng. 2024, Shanghai APACTRON Particle Equipment Co., Ltd (&#19978;&#28023;&#33406;&#26222;&#24378;&#31890;&#23376;&#35774;&#22791;&#26377;&#38480;&#20844;&#21496;).</p>
 <p><strong>Qisheng Jiang</strong> (&#23004;&#20854;&#21319;), M.Eng. 2024, Duke University (&#26460;&#20811;&#22823;&#23398;) for PhD program.</p>
 <p><strong>Xinyi Wu</strong> (&#21556;&#24515;&#24609;), M.Eng. 2024, Lingxi Games (&#28789;&#29312;&#20114;&#23089;).</p>
-<p><strong>Chongnan Ye</strong> (&#21494;&#23815;&#21335;), M.Eng. 2023, Biren Technology (&#22721;&#20190;&#31185;&#25216;)</p>
+<p><strong>Chongnan Ye</strong> (&#21494;&#23815;&#21335;), M.Eng. 2023, Biren Technology (&#22721;&#20190;&#31185;&#25216;).</p>
 <p><strong>Haoran Dang</strong> (&#x515a;&#x6d69;&#x7136;), B.Eng. 2022, ICT, CAS (&#x4e2d;&#x79d1;&#x9662;&#x8ba1;&#x7b97;&#x6240;) for postgraduate study.</p>
 <p><strong>Rui Wang</strong> (&#x6c6a;&#x9510;), B.Eng. 2021, Tokyo Tech (&#x6771;&#x4eac;&#x5de5;&#x696d;&#x5927;&#x5b66;) for postgraduate study.</p>
 
