@@ -26,16 +26,22 @@ title: Members of Toast Lab
 </div>
 -->
 
+
+<!--
 <div class="news-row-left"><img src="./photos/jiangqsh.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-jiangqsh">
 <p><strong>Qisheng Jiang</strong> (&#23004;&#20854;&#21319;), who received a bachelor's degree from Tongji University (&#x540c;&#x6d4e;&#x5927;&#x5b66;), will start the graduate program at ShanghaiTech University in 2021. His research interests include computer architecture, persistent memory, and key-value store.</p>
 </div>
+-->
 
 
+<!--
 <div class="news-row-left"><img src="./photos/xuqing.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-xuqing">
 <p><strong>Qing Xu</strong> (&#x8bb8;&#x6674;) obtained her B.Eng. degree from Hunan Normal University (&#x6e56;&#x5357;&#x5e08;&#x8303;&#x5927;&#x5b66;). She would join Toast Lab for postgraduate study in 2021. Her research interests include file systems and persistent memory.</p>
 </div>
+-->
+
 
 <div class="news-row-left"><img src="./photos/huyp.jpg" height="150" alt="" /></div>
 <div class="news-row-right2" id="student-huyp">
@@ -72,13 +78,29 @@ title: Members of Toast Lab
 <p><strong>Yunxin Yang</strong> (&#26472;&#26112;&#26133;), who received a bachelor's degree from Harbin Institute of Technology (Shenzhen) (&#21704;&#23572;&#28392;&#24037;&#19994;&#22823;&#23398;(&#28145;&#22323;)), will start the graduate program at ShanghaiTech University in 2023. His research interests include key-value store, file system and database.  </p>
 </div>
 
+
+<div class="news-row-left"><img src="./photos/cuihj.jpg" height="150" alt="" /></div>
+<div class="news-row-right2" id="student-cuihj">
+<p><strong>Hanjia Cui</strong> (&#23828;&#21547;&#20339;) graduated from Shanghaitech University in 2024 with a Bachelor's degree in Computer Science. She has joined Toast Lab for postgraduate study. Her research interests include persistent memory, computer architecture and storage system.</p>
+</div>
+
+
+<div class="news-row-left"><img src="./photos/guokc.jpg" height="150" alt="" /></div>
+<div class="news-row-right2" id="student-guokc">
+<p><strong>Kunchang Guo</strong> (&#37101;&#22372;&#26124;) graduated from Nankai University (&#21335;&#24320;&#22823;&#23398;) with a B.Eng. degree and will join Toast Lab for postgraduate study in 2024. His research interests include computer architecture and storage system. </p>
+</div>
+
 <div class="clear"></div>
 <hr color="red">
 
 
 <h2><a name="/people/alumni"><font color="darkred">Alumni</font></a></h2>
 
-<p><strong>Chongnan Ye</strong> (&#21494;&#23815;&#21335;), M.Bng. 2023, Biren Technology (&#22721;&#20190;&#31185;&#25216;) 
+<p><strong>Juncheng Chu</strong> (&#20648;&#21531;&#25104;), M.Eng. 2024, ByteDance (&#23383;&#33410;&#36339;&#21160;).</p>
+<p><strong>Qing Xu</strong> (&#35768;&#26228;), M.Eng. 2024, Shanghai APACTRON Particle Equipment Co., Ltd (&#19978;&#28023;&#33406;&#26222;&#24378;&#31890;&#23376;&#35774;&#22791;&#26377;&#38480;&#20844;&#21496;).</p>
+<p><strong>Qisheng Jiang</strong> (&#23004;&#20854;&#21319;), M.Eng. 2024, Duke University (&#26460;&#20811;&#22823;&#23398;) for PhD program.</p>
+<p><strong>Xinyi Wu</strong> (&#21556;&#24515;&#24609;), M.Eng. 2024, Lingxi Games (&#28789;&#29312;&#20114;&#23089;).</p>
+<p><strong>Chongnan Ye</strong> (&#21494;&#23815;&#21335;), M.Eng. 2023, Biren Technology (&#22721;&#20190;&#31185;&#25216;)</p>
 <p><strong>Haoran Dang</strong> (&#x515a;&#x6d69;&#x7136;), B.Eng. 2022, ICT, CAS (&#x4e2d;&#x79d1;&#x9662;&#x8ba1;&#x7b97;&#x6240;) for postgraduate study.</p>
 <p><strong>Rui Wang</strong> (&#x6c6a;&#x9510;), B.Eng. 2021, Tokyo Tech (&#x6771;&#x4eac;&#x5de5;&#x696d;&#x5927;&#x5b66;) for postgraduate study.</p>
 
