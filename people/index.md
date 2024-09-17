@@ -90,6 +90,12 @@ title: Members of Toast Lab
 <p><strong>Kunchang Guo</strong> (&#37101;&#22372;&#26124;) graduated from Nankai University (&#21335;&#24320;&#22823;&#23398;) with a B.Eng. degree and will join Toast Lab for postgraduate study in 2024. His research interests include computer architecture and storage system. </p>
 </div>
 
+<div class="news-row-left"><img src="./photos/wangjl.jpg" height="180" alt="" /></div>
+<div class="news-row-right2" id="student-wangjl">
+<p><strong>Jiale Wang</strong> (&#29579;&#22025;&#20048;), who received a bachelor's degree from Shanghai Ocean University (&#19978;&#28023;&#28023;&#27915;&#22823;&#23398;), has joined Toast Lab for postgraduate study. His research interests include optimizing computer systems.</p>
+</div>
+
+
 <div class="clear"></div>
 <hr color="red">
 
