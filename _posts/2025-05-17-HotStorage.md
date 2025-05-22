@@ -14,4 +14,3 @@ description: Two papers are accepted by HotStorage 2025
 
 <p>The 17th ACM Workshop on Hot Topics in Storage and File Systems (HotStorage '25) will take place in person on July 10th and 11th, 2025 in Boston, MA, a day after the 19th USENIX Symposium on Operating Systems Design and Implementation (OSDI '25) and the 2025 USENIX Annual Technical Conference (ATC '25). The workshop is sponsored by ACM, runs in cooperation with USENIX, and its proceedings will appear in the ACM Digital Library.</p>
 
-
