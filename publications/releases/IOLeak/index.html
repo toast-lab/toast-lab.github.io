@@ -1,0 +1,1385 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+   
+<!-- Include MathJax from CDN in your HTML head or before closing body -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<style>
+  .styled-table {
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the table */
+    font-size: 14px;
+    min-width: 350px;
+    max-width: 800px;
+    border: 1px solid #333;
+    text-align: center;
+  }
+
+  .styled-table th,
+  .styled-table td {
+    border: 1px solid #333;
+    padding: 8px 12px;
+  }
+
+  .styled-table thead {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .styled-table caption {
+    caption-side: top;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+  }
+
+   .font-arial {
+      font-family: Arial;
+      font-style: italic;
+   }
+
+   .font-times {
+      font-family: 'Times New Roman';
+   }
+
+</style>
+
+
+<head><title>IOLeak: Side-channel Information Leakage with CPU Frequency Scaling, but without CPU Frequency</title> 
+<meta  charset="iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="style.css" /> 
+<!-- <meta name="src" content="hotstorage2025.tex" />  -->
+</head>
+<body 
+>
+<div class="maketitle">
+  <p class="noindent">
+    <span class="LinBiolinumTB-tlf-t1-x-x-207">
+      IOLeak: Side-channel Information Leakage with CPU Frequency Scaling, but without CPU Frequency
+    </span>
+  </p>
+
+  <p class="noindent">
+    <span class="LinLibertineT-tlf-t1-x-x-144">Li Zhu, Chundong Wang</span>&#x00A0;
+    <a id="likesection.1"></a>
+    <a id="Q1-1-0"></a>
+  </p>
+</div>
+
+  <p class="indent">
+    CPU frequency scaling is widely employed to dynamically adjust the speed and voltage of CPU cores in real time, aiming to achieve both high performance and power efficiency. Prior work indicates that variations in CPU frequency can leak information about the workload being processed. We find that the performance of I/O requests, such as file I/Os with a fast storage device, is affected by runtime changes in CPU frequency and, in turn, reflects the behavior of the ongoing workload.
+  </p>
+
+  <p class="indent">
+    Accordingly, we develop <span class="LinLibertineTB-tlf-t1-">IOLeak</span>, a new side-channel built on CPU frequency scaling without directly accessing CPU frequency. We first construct an IOLeak covert channel by detecting I/O latency online for secretive communication, both with and without noise. Next, we leverage IOLeak to launch stealthy attacks, such as extracting cryptographic keys and fingerprinting websites, and confirm that IOLeak manages to leak information through file I/Os.
+  </p>
+
+<h3 class="sectionHead">
+  <!-- <span class="titlemark">1</span> -->
+  <a id="x1-10001"></a>Introduction
+</h3>
+
+<p class="noindent">
+  Power efficiency is increasingly critical in computer systems, with CPUs being major power consumers. Dynamic voltage and frequency scaling (DVFS) allows CPUs to adjust their clock frequencies based on the workloads they are serving, particularly reducing power consumption for non-compute-intensive, inactive tasks
+  [<a href="#XCPU:uncore:ATC-2012">14</a>,
+  <a href="#XCPU:PowerNap:APLOS-2009">28</a>,
+  <a href="#XCPU:scheduling-energy:OSDI-1994">37</a>,
+  <a href="#XCPU:per-chip-scaling:ATC-2010">46</a>].
+  I/O operations involving peripheral devices have long been considered appropriate events for triggering CPU frequency reduction
+  [<a href="#XCPU:scaling:FGCS-2016">15</a>, 
+ <a href="#XCPU:freq-scaling:EuroPar-2011">20</a>]. Recently, Linux kernel developers discovered that computations following short-term I/O operations suffer from low CPU frequencies, which may severely impair I/O performance. To address this, they introduced an <span class="LinLibertineTI-tlf-t1-">iowait</span>
+  <span class="LinLibertineTI-tlf-t1-">boosting</span> algorithm
+  [<a href="#Xgooglev212Cpufreq">10</a>, <a href="#XCPU:iowait-git-pull">38</a>, <a href="#XiuLinuxKernelArchive">39</a>].
+  If continuous I/O events are observed in a time tick, the algorithm boosts the CPU frequency to more quickly handle I/O operations and subsequent computations.
+</p>
+
+<p class="indent">
+  Recent studies reveal that CPU frequency fluctuations can be utilized for side-channel attacks, leaking sensitive information from ongoing workloads
+  [<a href="#Xsecurity:scaling:TCAD-2018">30</a>, <a href="#Xsecurity:IdleLeak:NDSS-2024">31</a>,
+  <a href="#Xsecurity:ClkScrew:ATC-2017">33</a>,  <a href="#Xsecurity:Hertzbleed:SEC-2022">34</a>].
+  However, existing attacks require privileged access to CPU registers or OS interfaces such as <span class="font-arial">scaling_cur_freq</span>
+  [<a href="#Xsecurity:DF-SCA:ACSAC-2022">6</a>, <a href="#Xsecurity:Hertzbleed:SEC-2022">34</a>].
+</p>
+
+<p class="indent"> 
+  In this paper, we present <span class="LinLibertineTB-tlf-t1-">IOLeak</span>, a novel side&#45;channel attack that exploits CPU frequency scaling through I/O operations without requiring direct CPU frequency access. Our approach is based on the observation that I/O performance&#8212;especially on storage devices such as solid&#45;state drives (SSDs)&#8212;correlates with CPU frequency changes, enabling adversaries to infer workload characteristics.
+</p>
+
+
+<p class="indent">
+  To the best of our knowledge, IOLeak is the first approach leveraging I/O behavior to speculate on CPU frequency changes. We first build a covert channel where a sender manipulates CPU frequency via compute-intensive tasks, while a receiver monitors file I/O latency to detect transmitted information (see <a href="#fig-i-o-architecture">Figure 1</a>).
+  We evaluate its effectiveness in the cross-core scenario, achieving a transmission rate of 15.83 bps with a 0.57% bit error rate&#8212; comparable to existing CPU frequency-based covert channels. More importantly, we demonstrate that real-world applications, including cryptographic encapsulation/decapsulation and website browsing, are vulnerable to information leakage through IOLeak.
+</p>
+
+<p class="indent">
+  We summarize the contributions of IOLeak as follows:
+</p>
+
+<ul class="itemize1">
+  <li class="itemize">
+    We propose IOLeak, a side-channel attack leveraging I/O response time to infer CPU frequency variations, bypassing the need for privileged access to specific resources.
+  </li>
+  <li class="itemize">
+    We demonstrate and analyze how I/O performance, particularly storage I/Os, can reflect changes in CPU frequency and leak information about the ongoing workload. We implement the IOLeak covert channel in cross-core scenarios, achieving reliable data transmissions.
+  </li>
+  <li class="itemize">
+    We successfully perform side-channel attacks using IOLeak on real-world workloads, including extracting post-quantum cryptographic keys and fingerprinting websites.
+  </li>
+</ul>
+
+<h3 class="sectionHead">
+  <!-- <span class="titlemark">2</span> -->
+  <a id="x1-20002"></a>Background
+</h3>
+
+<p class="noindent">
+  Let us briefly review CPU frequency scaling and its interaction with I/O performance. Due to the high popularity of Intel CPUs, we mainly focus on Intel's recent products, such as Alder Lake and Xeon Ice Lake-SP, in this paper.
+</p>
+
+<figure class="figure" id="fig-i-o-architecture">
+  <div style="display: flex; justify-content: center; gap: 20px;">
+    <!-- Subfigure (a) -->
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <img src="./figs/structure-victim-1.png" alt="Attacker (receiver) doing file I/Os alone" width="300" height="280" />
+      <span class="LinLibertineTB-tlf-t1-x-x-90">(a) Attacker (receiver) performing file I/Os alone</span>
+    </div>
+
+    <!-- Subfigure (b) -->
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <img src="./figs/structure-victim-2.png" alt="Attacker co-existing with victim (sender)" width="300" height="280" />
+      <span class="LinLibertineTB-tlf-t1-x-x-90">(b) Attacker (receiver) co-existing with victim (sender)</span>
+    </div>
+  </div>
+
+  <!-- Main figure caption -->
+  <figcaption class="caption" style="text-align: center; margin-top: 10px;">
+    <span class="id">Figure 1:</span>
+    <span class="content">An illustration of the architecture for IOLeak</span>
+  </figcaption>
+</figure>
+
+
+<p class="noindent">
+  <span class="LinLibertineTB-tlf-t1-">P-States.</span> A computer comprises CPU, memory, storage, and peripheral devices. Among these, the CPU accounts for a large proportion of the system's overall power consumption. Intel defines the concept of <span class="LinLibertineTI-tlf-t1-">Performance States</span> (P-States), where a CPU core operates at a specific frequency and voltage
+  [<a href="#XCPU:CPUFreq:Intel">5</a>, <a href="#XCPU:CPUFreq">40</a>].
+  Modern CPUs support hardware-managed P-States (HWP), allowing the processor to autonomously manage frequency scaling, reducing the need for OS-controlled CPU frequency adjustments (CPUFreq)
+  [<a href="#XCPU:CPUFreq:Intel">5</a>, <a href="#XCPU:CPUFreq">40</a>].
+  In Linux, CPUFreq implements DVFS to minimize power consumption by adjusting P-States according to workload needs. For compute-intensive tasks, the OS increases CPU frequency and voltage, while for less demanding workloads, it reduces them. This dynamic scaling aims to balance performance and power efficiency.
+</p>
+
+<p class="indent">
+  <span class="LinLibertineTB-tlf-t1-">Frequency Scaling and I/Os.</span> For Linux and Intel CPUs, Intel provides a driver named <code>intel_pstate</code>
+  [<a href="#Xintel-pstate">41</a>] which offers several algorithms called <span class="LinLibertineTI-tlf-t1-">scaling governors</span> to determine the desired CPU frequency for a given workload. The default governor is <code>powersave</code>, which strives to balance power savings with high performance. It adjusts the CPU frequency based on workload intensity. We use the <code>powersave</code> governor from the latest stable Linux kernels in our study.
+</p>
+
+<p class="indent">
+  I/O-intensive workloads were traditionally seen as CPU-independent, leading to frequency scale-down. However, Linux developers observed that short-term I/O operations often require subsequent CPU processing. Operating at a low CPU frequency in such cases degrades performance
+  [<a href="#XCPU:iowait-trouble:lwn">2</a>, <a href="#XCPU:iowait-git-pull">38</a>].
+  To address this, the <em>iowait boosting</em> algorithm was added to scaling governors. It temporarily increases CPU frequency when multiple I/O requests occur in a short time window
+  [<a href="#XCPU:CPUFreq">40</a>].
+  This algorithm was introduced to prevent performance degradation in post-I/O computations, and as a side effect, it boosts I/O performance itself
+  [<a href="#XCPU:iowait-trouble:lwn">2</a>, <a href="#XSSD:frequency:IEICE-2019">16</a>].
+</p>
+
+<h3 class="sectionHead">
+   <!-- <span class="titlemark">3</span>  -->
+   <a id="x1-30003"></a>A Motivational Study</h3>
+
+
+<figure class="float" style="text-align: center;">
+  <a id="x1-3002"></a>
+  <figcaption class="caption">
+    <span class="id">Table 1:</span>
+    <span class="content">CPUs and storage devices used in our study</span>
+  </figcaption>
+
+  <div class="adjustbox" id="adjustbox-1" style="display: inline-block;">
+    <table id="TBL-1" class="styled-table">
+      <thead>
+        <tr>
+          <th>Machine</th>
+          <th>CPU</th>
+          <th>Storage Device</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M1</td>
+          <td>12th Gen Intel&#174; Core&#8482; i5-12500 (6 physical cores)</td>
+          <td>Intel 660p NVMe SSD (512GB)</td>
+        </tr>
+        <tr>
+          <td>M2</td>
+          <td>Intel&#174; Xeon&#174; Gold 6348 (28 physical cores)</td>
+          <td>Samsung PM863a SATA SSD (960GB)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</figure>
+
+
+                                                                                                
+<p class="noindent"  >
+  To verify whether CPU frequency indeed impacts I/O performance and infer the current CPU frequency, we conducted a suite of tests.
+</p>
+
+<p class="indent">
+  <span class="LinLibertineTB-tlf-t1-">Setup.</span> <a href="#fig-i-o-architecture">Figure 1</a> illustrates the high-level architecture of the machine we studied. <a href="#TBL-1">Table 1</a> presents the two machines (M1 and M2) we used. Each machine is equipped with an SSD for unprivileged, ordinary use.
+</p>
+
+<p class="indent">
+  To avoid interfering with these SSDs, we installed Ubuntu 22.04.5 with the built-in Linux kernel 6.8.0-51 on a separate disk for each machine. For all three SSDs, the file system is Ext4, mounted in the default <span class="font-arial">data=ordered</span> mode. We primarily use the default <code>powersave</code> governor of intel_pstate for frequency scaling and manually set a specific frequency using the <code>userspace</code> governor when necessary.
+</p>
+
+<figure class="figure" style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;" >
+  <div style="text-align: center;">
+    <img src="./figs/hard-soft-ware-1.png" alt="I/O Latency vs Fixed CPU Frequencies" width="350" height="220" id="fig2a"/>
+    <figcaption style="font-size: 90%; margin-top: 0.5rem;">
+      <strong>(a)</strong> Changes in I/O latencies for two SSDs with different fixed CPU frequencies (in kilocycles)
+    </figcaption>
+  </div>
+
+  <div style="text-align: center;">
+    <img src="./figs/bar-M1-1.png" alt="I/O Latency under Powersave Mode"  width="300" height="220" id="fig2b"/>
+    <figcaption style="font-size: 90%; margin-top: 0.5rem;">
+      <strong>(b)</strong> Changes in I/O latencies for two SSDs under <code>powersave</code> mode with and without computing tasks
+    </figcaption>
+  </div>
+</figure>
+
+<figcaption class="caption" style="text-align: center; margin-top: 1rem;">
+  <span class="id">Figure&nbsp;2:</span>
+  <span class="content">Changes in I/O latencies for two SSDs with different CPU frequency settings</span>
+</figcaption>
+
+<!--l. 51-->
+<p class="indent" >
+  <span class="LinLibertineTB-tlf-t1-">Tests.</span> In the first test, we fix the CPU frequency at 800 MHz and 3 GHz using the <code>userspace</code> governor. On both SSDs of M1 and M2, we create a file with only one data block of 4KB and consider an I/O pattern that repeatedly reads this block in direct I/O (O_DIRECT) mode. This file has the simplest structure, minimizing both the cost of mapping from in-file offset to on-disk block number [<a href="#XSSD:BypassD:ASPLOS-2024">42</a>] and the internal contention in an SSD [<a href="#Xsecurity:SSD-contention:NDSS-2025">19</a>]. The direct I/O mode rules out the divergence caused by the OS's page cache. For ease of analysis, we use the <span class="font-arial">rdtscp</span> instruction of x86 to measure the average I/O latency in terms of CPU clock cycles consumed per read I/O request. In <a href="#fig2a">Figure 2a</a>, each SSD has two bars corresponding to the two frequencies. For both SSDs, their I/O latencies reduce by 13.2% and 17.2%, respectively. Therefore, the change in CPU frequency results in noticeably different I/O performances. Although these performance variations are moderate, we will demonstrate that they cause severe information leakage.
+</p>
+
+<!--l. 60-->
+<p class="indent" >
+  To understand why CPU frequency affects I/O latency, we decompose the procedure of an I/O request delivered through the <span class="font-arial">read</span> system call (syscall) to the SSD. The procedure consists of two stages. The first stage translates the <span class="font-arial">read</span> syscall to the kernel-space function of the specific file system, i.e., Ext4's <span class="font-arial">ext4_dio_read_iter</span>. Ext4 locates the target disk block, makes a block I/O (bio) request, and submits it to the bio layer. In the second stage, the bio layer issues that bio request to the device driver, waits for and collects the return value from the SSD, and forwards the completion or failure signal to the user-space program. The first stage involves CPU computations, while the second stage primarily occurs inside the SSD, though it also requires some CPU involvement. We refer to these two stages as <span class="LinLibertineTI-tlf-t1-">CPU1</span> and <span class="LinLibertineTI-tlf-t1-">IO+CPU2</span>, respectively.
+</p>
+
+<!--l. 62-->
+<p class="indent" >
+  <a href="#fig2a">Figure 2a</a> shows the breakdown of clock cycles spent on the two stages for both SSDs at the two frequencies. For example, when the CPU frequency increases from 800 MHz to 3 GHz on M1, the execution time for the <span class="LinLibertineTI-tlf-t1-">CPU1</span> stage decreases by 73.3%. The execution time for the <span class="LinLibertineTI-tlf-t1-">IO+CPU2</span> stage also reduces by 7.6%. The acceleration of computations in both stages explains why changes in CPU frequency impact I/O latencies for both SSDs.
+</p>
+
+<!--l. 64-->
+<p class="indent" >
+  In the second test, we switch back to the default <code>powersave</code> governor of intel_pstate. We evaluate whether I/O performance fluctuates when CPU frequency scaling happens dynamically. We repeat the same I/O pattern on both machines. To trigger frequency scaling, we create a thread that performs heavy computations such as random number generation or matrix multiplication. We run the I/O task with and without the presence of this computing task. As shown in <a href="#fig2b">Figure 2b</a>, when the CPU frequency scales up due to the computing task, the average I/O latency decreases by 15.2% and 30.6% on M1 and M2, respectively. This motivates us to study the runtime changes of I/O performance more deeply.
+</p>
+
+<figure class="figure", id="Figure3">
+  <a id="x1-3007r3"></a>
+  <!--l. 3-->
+  <p class="noindent" >
+    <img src="./figs/covert-channel-1.png" alt="PIC" width="500" height="400" />
+    <a id="x1-3008"></a>
+  </p>
+  <figcaption class="caption">
+    <span class="id">Figure&nbsp;3:</span>
+    <span class="content">The workflow of IOLeak covert channel</span>
+  </figcaption>
+</figure>
+
+<h3 class="sectionHead">
+  <!-- <span class="titlemark">4 </span>  -->
+  <a id="x1-40004"></a>Cross-core Covert Channel
+</h3>
+
+<p class="noindent" >
+  Researchers have built covert (side) channels by directly exploiting CPU frequency, since different running workloads, or one workload with different data processed, cause observable variations in runtime CPU frequency
+  [<a href="#Xsecurity:uncore-freq-scaling:Micro-2023">13</a>, <a href="#Xsecurity:freq-throttling:CCS-2022">22</a>,
+  <a href="#Xsecurity:Hertzbleed:SEC-2022">34</a>, <a href="#Xsecurity:SIKE:SP-2023">35</a>, <a href="#Xsecurity:SegScope:HPCA-2024">47</a>]. In contrast to these works utilizing hardware registers or specific interfaces provided by the OS, the storage I/O performance, as verified by our tests in <a href="#x1-30003">Section 3</a>, provides an inconspicuous and controllable viewpoint to online monitor changes in CPU frequency and, in turn, infer information about ongoing workloads. Using this observation, we build a covert channel for communication. We name it <span class="LinLibertineTB-tlf-t1-">IOLeak</span>. IOLeak is a timing-based channel as it transmits data by measuring I/O response latency over time.
+</p>
+
+<p class="noindent" >
+  <span class="subsectionHead">
+    <!-- <span class="titlemark"><span class="LinLibertineTB-tlf-t1-">4.1 </span> -->
+   <!-- </span>  -->
+    <a id="x1-50004.1"></a>
+    <span class="LinLibertineTB-tlf-t1-">Attack model.</span>
+  </span>
+</p>
+
+<p class="indent" >
+  <a href="#Figure3">Figure 3</a> shows the workflow of the IOLeak covert channel in transmitting data. Two parties, the receiver and the sender, rely on the channel for secret communication. They run concurrently as two user-space programs (processes) on the same multi-core CPU. Except for the CPU, they do not need to share any specific hardware, such as CPU cache lines or sets [<a href="#X7163050">24</a>, <a href="#X184415">44</a>], cache coherence directories [<a href="#X8835325">43</a>], TLBs [<a href="#X217454">12</a>], or other components [<a href="#X10.1145/3173162.3173204">8</a>, <a href="#Xsecurity:Optane:SEC-2023">25</a>, <a href="#Xsecurity:NVLeak:SEC-2023">36</a>]. In particular, although the receiver measures the I/O response latency at runtime, the two parties do not have to share the same storage device during communication [<a href="#Xsecurity:Sync+Sync:SEC-2024">18</a>, <a href="#Xsecurity:SSD-contention:NDSS-2025">19</a>]. They also do not need to share any software structures or libraries [<a href="#X285391">21</a>, <a href="#X299529">26</a>, <a href="#Xsecurity:KernelSnitch:NDSS-2025">27</a>, <a href="#X184415">44</a>]. The sender and receiver can run on the same CPU core or different cores. We intentionally allocate different physical cores to them for meaningful covert communications.
+</p>
+
+
+
+<!--l. 43-->
+<p class="noindent">
+  <span class="subsectionHead">
+    <!-- <span class="titlemark"> -->
+      <!-- <span class="LinLibertineTB-tlf-t1-">4.2</span> -->
+    <!-- </span> -->
+    <a id="x1-60004.2"></a>
+    <span class="LinLibertineTB-tlf-t1-">Protocol and Performance.</span>
+  </span>
+</p>
+
+<p class="indent">
+  <span class="LinLibertineTB-tlf-t1-">Setup.</span> We adhere to the default <code>powersave</code> governor of
+  <code>intel_pstate</code> for CPU frequency scaling. The sender and receiver agree that the sender delivers one bit of information
+  to the receiver in each fixed time window (i.e., <span class="LinLibertineTI-tlf-t1-">symbol duration</span>). For reliable communication,
+  we let the sender create <em>&kappa;</em> threads (<em>&kappa;</em> &gt; 0), each running on a separate physical core.
+  Following the study shown in <a href="#x1-30003">Section 3</a>, the receiver prepares a 4KB file and reads the data in direct I/O mode.
+  Moreover, the receiver maintains a profile of expected higher and lower I/O latencies to distinguish transmitted bits.
+</p>
+
+<p class="indent">
+  <span class="LinLibertineTB-tlf-t1-">Protocol.</span> Since this is a covert channel for communication,
+  the two parties can calibrate and synchronize before actual transmission. To send a bit <em>'1'</em>,
+  the sender engages <em>&kappa;</em> threads performing compute-intensive tasks, such as generating random integers.
+  Conversely, to send a bit <em>'0'</em>, the sender remains idle by sleeping during the time window <span class="nxlmi-">t</span>.
+  On the receiving side, the receiver attempts to obtain the transmitted bit during the same time window by repeatedly
+  loading the file data directly from storage. If a longer I/O latency is observed, a bit <em>'0'</em> is received,
+  as the CPU frequency remains low due to the sender's inactivity. A shorter I/O latency indicates a bit <em>'1'</em>,
+  since the sender's active computing tasks increase the CPU frequency.
+</p>
+
+                                                                                                
+                                                                                                
+<p class="indent"><a id="x1-6001r2"></a></p>
+
+<div style="display: flex; justify-content: center; margin: 1em 0;">
+  <table class="styled-table" id="tbl2">
+    <caption>
+      Table 2: The channel capacity and BER of the cross-core IOLeak covert channel measured with different time window sizes.
+    </caption>
+    <thead>
+      <tr>
+        <th colspan="2">Time window size (ms)</th>
+        <th>30</th>
+        <th>60</th>
+        <th>90</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="2"><strong>Noiseless</strong></td>
+        <td><strong>Capacity (bps)</strong></td>
+        <td>15.47</td>
+        <td>15.83</td>
+        <td>11.11</td>
+      </tr>
+      <tr>
+        <td><strong>BER</strong></td>
+        <td>12.23%</td>
+        <td>0.57%</td>
+        <td>0%</td>
+      </tr>
+      <tr>
+        <td rowspan="2"><strong>Compute-intensive noise</strong></td>
+        <td><strong>Capacity (bps)</strong></td>
+        <td>0.004</td>
+        <td>2.37</td>
+        <td>5.19</td>
+      </tr>
+      <tr>
+        <td><strong>BER</strong></td>
+        <td>49.28%</td>
+        <td>28.17%</td>
+        <td>12.12%</td>
+      </tr>
+      <tr>
+        <td rowspan="2"><strong>I/O-intensive noise</strong></td>
+        <td><strong>Capacity (bps)</strong></td>
+        <td>0.03</td>
+        <td>14.70</td>
+        <td>7.55</td>
+      </tr>
+      <tr>
+        <td><strong>BER</strong></td>
+        <td>48.13%</td>
+        <td>1.60%</td>
+        <td>5.83%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+                                                                                                
+
+<!--l. 93-->
+<p class="indent">
+  <span class="LinLibertineTB-tlf-t1-">Evaluation.</span>  
+  Let us evaluate the performance of the IOLeak covert channel. Without loss of generality, we mainly present the results obtained on machine M1, where the sender process includes three threads (i.e., <em>&kappa;</em> = <span class="cmr-10">3</span>) concurrently performing compute-intensive tasks on three physical cores.
+  We have tested three sizes for the time window: <span class="nxlmi-">t</span> = 30 ms, 60 ms, and 90 ms.  
+  The reason we chose a millisecond-level time window (symbol duration) is that with modern CPUs and the Linux kernel, the online adjustment to scale CPU frequency up or down occurs every one or multiple milliseconds.  
+  Prior works based on power management used a similar time window [<a href="#XSSD:frequency:IEICE-2019">16</a>, <a href="#X10.1145/3433210.3437517">48</a>].  
+  Therefore, our setting of the time window <span class="nxlmi-">t</span> is compatible and sound.
+</p>
+
+<!--l. 107-->
+<p class="indent">
+  We make the sender continuously send 1,000 bits. To measure channel performance, we use two common metrics: bit error rate (BER) and channel capacity.  
+  We denote the channel capacity as <span class="nxlmi-">T</span> and calculate it using the following binary symmetric channel model [<a href="#X10.1007/978-3-540-87403-4_12">11</a>, <a href="#Xsecurity:Sync+Sync:SEC-2024">18</a>, <a href="#X8894104">45</a>]:
+</p>
+
+
+<!-- Centered Equation -->
+<div style="text-align: center; margin: 1em 0;">
+  $$ T = C \cdot \left\{1 + \left[(1 - p) \cdot \log_2(1 - p) + p \cdot \log_2(p)\right]\right\} $$
+</div>
+<!--l. 112-->
+<p class="nopar">
+  In this formula, <span class="nxlmi-">C</span> is the raw bit rate (<span class="cmr-10">1</span><span class="ntxsy-">/</span><span class="nxlmi-">t</span>) and <span class="nxlmi-">p</span> is the BER.
+</p>
+
+<!--l. 115-->
+<p class="indent">
+  As shown in the upper rows of <a href="#tbl2">Table 2</a>, with the three time window sizes, the channel capacity of IOLeak is 15.47 bps, 15.83 bps, and 11.11 bps, respectively.  
+  IOLeak achieves a comparable capacity against covert channels built directly on power management (18.7 bps [<a href="#Xsecurity:software-power:SP-2021">22</a>]) and frequency scaling (46 bps [<a href="#Xsecurity:uncore-freq-scaling:Micro-2023">13</a>]).  
+  Correspondingly, the BERs of IOLeak decrease to 12.23%, 0.57%, and 0.00% with the increasing window sizes.  
+  With a longer time window (60 ms and 90 ms), the receiver has more sufficient time to detect and process each change in CPU frequency.
+</p>
+
+
+<h3 class="sectionHead">
+  <!-- <span class="titlemark">5 </span>  -->
+  <a id="x1-70005"></a>
+  Cross-core IOLeak Side-Channel
+</h3>
+
+<!--l. 2-->
+<p class="noindent">
+  In this section, we create several stealthy IOLeak side-channels and initiate cross-core attacks to demonstrate potential information leakage.  
+  We aim to prove that the IOLeak side-channel is capable of extracting cryptographic keys and revealing information about actively visited websites.
+</p>
+
+<!--l. 6-->
+<p class="noindent">
+  <span class="subsectionHead">
+    <!-- <span class="titlemark"> -->
+      <!-- <span class="LinLibertineTB-tlf-t1-">5.1 </span> -->
+    <!-- </span>  -->
+    <a id="x1-80005.1"></a>
+    <span class="LinLibertineTB-tlf-t1-">Threat Model.</span>
+  </span>
+</p>
+
+<!--l. 7-->
+<p class="indent">
+  We assume that the two parties in an attack, i.e., the attacker and the victim, are two user-space, unprivileged processes.  
+  Similar to <a href="#x1-40004">Section 4</a>, they do not need to run on the same core. Also, they do not need to share any data, libraries, or particular hardware or software structures.  
+  For the attacker, we prepare a file with only one 4KB-sized block prefilled with random data.  
+  Then, we launch the attacker process that continuously reads data in direct I/O mode.  
+  We use runtime changes of I/O latency to infer secrets of the victim process.  
+  The attacker is allowed to have a profile of I/O latencies expected at different CPU frequencies.  
+  In this section, we establish that our I/O-based cross-core side-channel possesses the same capability as CPU frequency-based side-channels.
+</p>
+
+<!--l. 12-->
+<p class="noindent">
+  <span class="subsectionHead">
+    <!-- <span class="titlemark"> -->
+      <!-- <span class="LinLibertineTB-tlf-t1-">5.2 </span> -->
+    <!-- </span>  -->
+    <a id="x1-90005.2"></a>
+    <span class="LinLibertineTB-tlf-t1-">Extracting Cryptographic Keys.</span>
+  </span>
+</p>
+
+<!--l. 14-->
+<p class="indent">
+  The first target of the IOLeak side-channel is to extract cryptographic keys used in the Supersingular Isogeny Key Encapsulation (SIKE).  
+  SIKE is a widely studied post-quantum key encapsulation mechanism based on the Supersingular Isogeny Diffie-Hellman (SIDH) key exchange protocol [<a href="#Xcryptoeprint:2011/506">17</a>].  
+  A SIKE user decapsulates one or multiple ciphertexts with a static secret key.  
+  For this decapsulation, the SIKE standard employs an efficient algorithm known as the Montgomery three-point ladder [<a href="#X8100879">9</a>].  
+  Wang et al. [<a href="#Xsecurity:Hertzbleed:SEC-2022">34</a>] demonstrated that SIKE is vulnerable under the chosen-ciphertext attack (CCA) model, in which the attacker generates many ciphertexts and asks the victim to decapsulate them, allowing the attacker to guess the key based on his/her observations.  
+  Wang et al. [<a href="#Xsecurity:Hertzbleed:SEC-2022">34</a>] managed to extract secret keys by monitoring CPU frequency variations.  
+  We, as an attacker using IOLeak, aim to recover such keys by conducting file I/Os.
+</p>
+
+<p class="indent">
+  Because of space limitations, we briefly describe the steps relevant to CPU frequency during the SIKE decapsulation procedure.  
+  More details can be found in related works [<a href="#Xsecurity:SIKE-2022">3</a>, <a href="#Xsecurity:SIKE:SP-2023">35</a>, <a href="#Xsecurity:Hertzbleed:SEC-2022">34</a>].  
+  The victim's secret key, denoted as <span class="nxlmi-">m</span>, is composed of <span class="nxlmi-">&ell;</span> bits (<span class="nxlmi-">&ell; = 378</span> in this attack case).  
+  For each target bit <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> in <span class="nxlmi-">m</span> used in the <span class="ntxsy-">(</span><span class="nxlmi-">i - 1</span><span class="ntxsy-">)</span>th round of the Montgomery three-point ladder,  
+  if <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> <span class="nxlmia-">&ne;</span> <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i - 1</span></sub>, an anomalous zero value will be produced, causing the decapsulation procedure to get stuck and continuously produce zero values,  
+  resulting in the CPU running at a higher frequency.  
+  Conversely, if <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> = <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i - 1</span></sub>, no anomalous zero value appears, and the CPU operates at a lower frequency.  
+  The attacker repeatedly queries the victim's decapsulation procedure with crafted ciphertexts following the CCA model, while monitoring the real-time I/O latency of reading file data to infer whether the decapsulation procedure gets stuck or not.  
+  If the attacker observes a shorter I/O latency relative to their profile, indicating a higher CPU frequency, they deduce that <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> <span class="nxlmia-">&ne;</span> <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i - 1</span></sub>, meaning these two bits have opposite values.  
+  Otherwise, if the I/O latency is longer, then <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> = <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i - 1</span></sub>, indicating they are both '0's or both '1's.  
+  By observing through the IOLeak side-channel, the attacker can identify the secret key bits.
+</p>
+
+
+<figure class="figure" id="fig-latency-dist">
+  <div style="display: flex; justify-content: center; gap: 20px;">
+    <!-- Subfigure (a) -->
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <img src="./figs/PQCryptoSIDH-1.png" alt="Attack to PQCrypto-SIDH" width="350" height="230" />
+      <span class="LinLibertineTB-tlf-t1-x-x-90">(a) Attack to PQCrypto-SIDH</span>
+    </div>
+    
+    <!-- Subfigure (b) -->
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <img src="./figs/CIRCL-1.png" alt="Attack to CIRCL" width="350" height="230" />
+      <span class="LinLibertineTB-tlf-t1-x-x-90">(b) Attack to CIRCL</span>
+    </div>
+  </div>
+
+  <!-- Main figure caption -->
+  <figcaption class="caption" style="text-align: center; margin-top: 10px;">
+    <span class="id">Figure 4:</span>
+    <span class="content">
+      The distribution of I/O latencies when a challenge ciphertext introduces an anomalous zero value 
+      (<span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> &ne; 
+      <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i-1</span></sub>) or not
+      (<span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> = 
+      <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i-1</span></sub>)
+    </span>
+  </figcaption>
+</figure>
+
+
+
+
+<p class="indent"> For the SIKE implementation used by the victim, we take Microsoft's PQCrypto-SIDH [<a href="#Xlib:pqcrypto-sike">29</a>] and Cloudflare's Interoperable Reusable Cryptographic Library (CIRCL) [<a href="#Xlib:circl">1</a>]. Without loss of generality, we evaluate 10 randomly generated keys, targeting 4 out of the 378 bit positions in each key. For every key and its target bits, we launch a decapsulation server process using POSIX threads (pthreads) for PQCrypto-SIDH or 300 goroutines for CIRCL, each handling a single decapsulation request. To minimize IOLeak's impact on increasing CPU frequency, the attacker samples at 1 ms intervals as in [<a href="#Xsecurity:Hertzbleed:SEC-2022">34</a>], which may cause the sampling duration to exceed the normal completion time of I/O requests. IOLeak collects 200,000 samples over 200 seconds for each guess. </p>
+
+
+
+<p class="indent">  
+The two diagrams in <a href="#fig-latency-dist">Figure&nbsp;4</a> correspond to the results for two SIKE implementations, respectively, on machine M1. The X-axis shows the I/O latency measured by the attacker in kilo (K) clock cycles, while the Y-axis represents the probability density. As demonstrated in <a href="fig-latency-dist">Figure&nbsp;4</a>, the I/O latency is lower when an anomalous zero value is triggered (i.e., <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> &ne; <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i-1</span></sub>) than when the zero value does not occur (i.e., <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i</span></sub> = <span class="nxlmi-">m</span><sub><span class="nxlmi-7x-x-73">i-1</span></sub>). Thus, IOLeak enables the attacker to significantly reduce the search space when speculating the key's bits. Based on this insight, IOLeak reduces the time complexity of guessing a target secret key from <code>O(2<sup>n</sup>)</code> to <code>O(n)</code>, dramatically improving the feasibility of recovering the entire key used in the SIKE mechanism.  
+</p>
+
+<p class="noindent">
+  <span class="subsectionHead">
+    <!-- <span class="titlemark"><span class="LinLibertineTB-tlf-t1-">5.3 </span></span> -->
+    <a id="x1-100005.3"></a>
+    <span class="LinLibertineTB-tlf-t1-">Fingerprinting Websites.</span>
+  </span>
+</p>
+
+<p class="indent">
+  Website fingerprinting is commonly used to assess the capability of a side-channel because various websites exhibit different behaviors across multiple dimensions, such as network traffic&nbsp;[<a href="#X10.1145/3372297.3423351">4</a>], CPU cache contention [<a href="#X235487">32</a>], shared OS kernel structures [<a href="#Xsecurity:KernelSnitch:NDSS-2025">27</a>], power consumption [<a href="#Xsecurity:software-power:SP-2021">22</a>,<a href="#X10.1145/3433210.3437517">48</a>], and even the <span class="font-arial">fsync</span> syscall [<a href="#Xsecurity:Sync+Sync:SEC-2024">18</a>]. Our focus is on the fact that various websites have different visual appearances, which induce varying graphical activities in webpage loading and image rendering, leading to distinct patterns of CPU frequency [<a href="#Xsecurity:DF-SCA:ACSAC-2022">6</a>, <a href="#X10629032">7</a>, <a href="#Xsecurity:Hertzbleed:SEC-2022">34</a>] and, in turn, different variations of I/O latency.
+</p>
+
+<p class="indent">
+  We construct a side-channel attack with IOLeak, targeting the two most commonly used browsers, Google Chrome and Mozilla Firefox. The victim opens a website from the Alexa Top 100 and waits for five seconds, offering sufficient time for the website to be fully loaded. The attacker leverages IOLeak to sample every 1 ms, ultimately obtaining 5000 data points. For classification, these raw traces are processed and fed into a Long Short-Term Memory (LSTM) model with 16 units after normalization. <a href="#TBL-3">Table&nbsp;3</a> presents the Top-1 and Top-5 accuracies with both browsers on three machines. With M1, the Top-1 accuracy reaches 79.4% when using Google Chrome, demonstrating a high probability of correctly inferring the expected website. The Top-5 accuracy is as high as 97.5%, comparable to prior works directly exploiting CPU frequency [<a href="#Xsecurity:DF-SCA:ACSAC-2022">6</a>] and much higher than those relying on CPU cache contention [<a href="#X235487">32</a>]. With M2, the accuracies fluctuate lower than with M1 but remain much higher than random guessing (1% for Top-1 and 5% for Top-5 accuracy). A deep analysis on these fluctuations shows that changes in CPU frequency on one core have less impact on other cores in M2, weakening the effect of cross-core IOLeak attacks.
+</p>
+
+
+
+<figure class="float" style="text-align: center;">
+  <figcaption class="caption">
+    <span class="id">Table&nbsp;3:</span>
+    <span class="content">IOLeak's accuracies in fingerprinting websites</span>
+  </figcaption>
+  <div class="tabular" style="display: inline-block; width: 60%;">
+    <table class="styled-table" id="TBL-3">
+      <thead>
+        <tr>
+          <th rowspan="2">Metric</th>
+          <th colspan="2">Google Chrome</th>
+          <th colspan="2">Mozilla Firefox</th>
+        </tr>
+        <tr>
+          <th>Top-1</th>
+          <th>Top-5</th>
+          <th>Top-1</th>
+          <th>Top-5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M1</td>
+          <td>79.4%</td>
+          <td>97.5%</td>
+          <td>65.5%</td>
+          <td>83.0%</td>
+        </tr>
+        <tr>
+          <td>M1</td>
+          <td>48.2%</td>
+          <td>76.7%</td>
+          <td>46.4%</td>
+          <td>77.0%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</figure>
+
+
+
+<h3 class="sectionHead">
+   <!-- <span class="titlemark">6</span>  -->
+  <a id="x1-110006"></a>Mitigation against IOLeak
+</h3>
+
+<p class="noindent">
+  The security breach revealed by IOLeak is significant. One mitigation approach involves running compute-intensive and/or I/O-intensive background tasks to introduce noise, which can degrade IOLeak's accuracy. Another strategy is to fix the CPU frequency to prevent information leakage via frequency scaling. However, this undermines dynamic frequency scaling's core purpose &#8212 balancing power efficiency and performance.
+</p>
+
+<p class="indent">
+  Since IOLeak exploits file I/O latency, injecting noise into the storage I/O path or stabilizing latency by normalizing it to a consistent value can be effective. These approaches, however, will likely degrade I/O performance, negatively impacting benign user experience.
+</p>
+
+<p class="indent">
+  Application-specific mitigations are also feasible. For example, to defend against CCA-style attacks on the SIKE implementation, validations can be added to prevent attackers from issuing malicious requests 
+  [<a href="#Xsecurity:SIKE-2022">3</a>]. In the case of website fingerprinting, browsers can enforce standardized rendering behaviors across websites, making it more difficult for side-channel attacks like IOLeak to differentiate between them.
+</p>
+
+<h3 class="sectionHead">
+   <!-- <span class="titlemark">7</span>  -->
+  <a id="x1-130008"></a>IOLeak with AMD CPUs
+</h3>
+
+<p class="noindent">
+  As mentioned, AMD CPUs also support scaling governor algorithms, defined in the <code>amd-pstate</code> driver [<a href="#amd-pstate">49</a>]. We evaluated IOLeak on a machine equipped with an AMD Ryzen 5 9600X CPU (x86-64, six cores) and a Kingston SSDNow V300 NVMe SSD (1TB). The communication setup between two parties mirrored that described in the previous <a href="#x1-40004">section</a>, and we again varied the time window (symbol duration).
+</p>
+
+<p class="indent">
+  <a href="#table-4">Table 4</a> details the capacity and BER of the cross-core covert channel. For instance, with a 60 ms time window, the capacity and BER reached 13.92 bps and 2.43%, respectively.
+</p>
+
+<p class="indent">
+  We also replicated the website fingerprinting attack using the Google Chrome browser. The TOP-1 and TOP-5 accuracies for identifying websites from the Alexa Top 100 were 61.4% and 84.7%, respectively. These findings confirm IOLeak's effectiveness on AMD platforms. We plan to extend testing to other architectures, such as ARM and RISC-V CPUs.
+</p>
+
+
+<figure class="float" id="table-4">
+  <figcaption class="caption">
+    <span class="id">Table 4:</span>
+    <span class="content">The channel capacity and BER of cross-core IOLeak covert channel with AMD CPU</span>
+  </figcaption>
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Time window size (ms)</th>
+        <th>30</th>
+        <th>60</th>
+        <th>90</th>
+        <th>120</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Capacity (bps)</td>
+        <td>N/A</td>
+        <td>13.92</td>
+        <td>10.62</td>
+        <td>8.17</td>
+      </tr>
+      <tr>
+        <td>BER</td>
+        <td>N/A</td>
+        <td>2.43%</td>
+        <td>0.48%</td>
+        <td>0.18%</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+
+<h3 class="sectionHead">
+   <!-- <span class="titlemark">8</span>  -->
+  <a id="x1-120007"></a>Conclusion and Future Work
+</h3>
+
+<p class="noindent">
+  We revisited the potential of side-channel attacks through CPU frequency scaling &#8212 without directly monitoring the frequency. We proposed IOLeak, a timing-based channel that leverages the impact of real-time CPU frequency on storage I/O latency, thereby indirectly leaking information about concurrent workloads.
+</p>
+
+<p class="indent">
+  Using IOLeak, we demonstrated the feasibility of covert communication across CPU cores, as well as two practical side-channel attacks: one targeting cryptographic key extraction and the other enabling website fingerprinting.
+</p>
+
+<p class="indent">
+  In future work, we plan to investigate IOLeak's applicability in cross-virtual machine (VM) leakage scenarios, a topic insufficiently addressed by prior research. We hope our contributions will stimulate continued research and innovation in this critical area.
+</p>
+
+
+
+
+                                                
+                                                                                                
+                                                                                                
+<!--l. 5-->
+<p class="indent">References<a id="likesection.2"></a><a id="Q1-1-15"></a></p>
+
+<div class="thebibliography">
+  <p class="bibitem">
+    <span class="biblabel">
+      <a id="Xlib:circl"></a><span class="LinLibertineT-tlf-t1-x-x-80">[1]</span>
+    </span>
+    <span class="LinLibertineT-tlf-t1-x-x-80">
+      Cloudflare. 2024. 
+      CIRCL: Cloudflare Interoperable, Reusable Cryptographic Library. 
+      <a href="https://github.com/cloudflare/circl.git" class="url">
+        https://github.com/cloudflare/circl.git
+      </a>. Accessed: 2024-12-30.
+    </span>
+  </p>
+
+  <p class="bibitem">
+    <span class="biblabel">
+      <a id="XCPU:iowait-trouble:lwn"></a><span class="LinLibertineT-tlf-t1-x-x-80">[2]</span>
+    </span>
+    <span class="LinLibertineT-tlf-t1-x-x-80">
+      Jonathan Corbet. 2024. 
+      The trouble with iowait. 
+      <a href="https://lwn.net/Articles/989272/" class="url">
+        https://lwn.net/Articles/989272/
+      </a>. Accessed: 2025-01-06.
+    </span>
+  </p>
+</div>
+
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:SIKE-2022"></a><span class="LinLibertineT-tlf-t1-x-x-80">[3]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Luca De Feo, Nadia El Mrabet, Aymeric Genêt, Novak Kaluđerović, Natacha Linard de Guertechin, Simon Pontié, and Élise Tasso. 2022. 
+    SIKE channels: Zero-value side-channel attacks on SIKE. 
+    <span class="LinLibertineTI-tlf-t1-x-x-80">IACR Transactions on Cryptographic Hardware and Embedded Systems</span> 2022 (2022), 264-289.
+  </span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:SIKE-2022"></a><span class="LinLibertineT-tlf-t1-x-x-80">[3]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Luca De Feo, Nadia El Mrabet, Aymeric Gen&ecirc;t, Novak Kalu&#x0111;erovi&#263;, Natacha Linard de Guertechin, Simon Ponti&eacute;, and &Eacute;lise Tasso. 2022. 
+    SIKE channels: Zero-value side-channel attacks on SIKE. 
+    <span class="LinLibertineTI-tlf-t1-x-x-80">IACR Transactions on Cryptographic Hardware and Embedded Systems</span> 2022 (2022), 264-289.
+  </span>
+</p>
+
+
+   <p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:CPUFreq:Intel"></a><span class="LinLibertineT-tlf-t1-x-x-80">[5]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Kevin Devey, David Hunt, and Chris MacNamara. 2022. Intel Power Management - Technology Overview.
+  </span>
+  <a href="https://networkbuilders.intel.com/solutionslibrary/power-management-technology-overview-technology-guide" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://networkbuilders.intel.com/solutionslibrary/power-management-technology-overview-technology-guide</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Accessed: 2025-01-06.</span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:DF-SCA:ACSAC-2022"></a><span class="LinLibertineT-tlf-t1-x-x-80">[6]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Debopriya Roy Dipta and Berk Gulmezoglu. 2022. DF-SCA: Dynamic Frequency Side Channel Attacks are Practical. In 
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Proceedings of the</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">38th Annual Computer Security Applications Conference </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">(Austin, TX, USA) </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">(ACSAC &#8217;22)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Association for Computing Machinery, New York, NY, USA, 841-853.</span>
+  <a href="https://doi.org/10.1145/3564625.3567979" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1145/3564625.3567979</span>
+  </a>
+</p>
+
+   <p class="bibitem">
+  <span class="biblabel">
+    <a id="X10629032"></a><span class="LinLibertineT-tlf-t1-x-x-80">[7]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Debopriya&#x00A0;Roy Dipta, Thore Tiemann, Berk Gulmezoglu, Eduard Marin, and Thomas Eisenbarth. 2024. Dynamic Frequency-Based Fingerprinting Attacks against Modern Sandbox Environments. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">2024 IEEE 9th European Symposium on Security and Privacy (EuroS&amp;P)</span><span class="LinLibertineT-tlf-t1-x-x-80">.</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80"> 327&#8211;344. </span>
+  <a href="https://doi.org/10.1109/EuroSP60621.2024.00025" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/EuroSP60621.2024.00025</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X10.1145/3173162.3173204"></a><span class="LinLibertineT-tlf-t1-x-x-80">[8]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Dmitry Evtyushkin, Ryan Riley, Nael&#x00A0;CSE Abu-Ghazaleh, ECE, and Dmitry Ponomarev. 2018. BranchScope: A New Side-Channel Attack on Directional Branch Predictor. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Proceedings of the Twenty-Third International Conference on Architectural Support for Programming Languages and Operating Systems </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">(Williamsburg, VA, USA) </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">(ASPLOS &#8217;18)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Association for Computing Machinery, New York, NY, USA, 693&#8211;707. </span>
+  <a href="https://doi.org/10.1145/3173162.3173204" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1145/3173162.3173204</span>
+  </a>
+</p>
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X8100879"></a><span class="LinLibertineT-tlf-t1-x-x-80">[9]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Armando Faz-Hern&#225;ndez, Julio L&#243;pez, Eduardo Ochoa-Jim&#233;nez, and Francisco Rodr&#237;guez-Henr&#237;quez.</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">2018. A Faster Software Implementation of the Supersingular Isogeny Difie-Hellman Key Exchange Protocol.</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">IEEE Trans. Comput.</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">67, 11 (2018), 1622&#8211;1636.</span>
+  <a href="https://doi.org/10.1109/TC.2017.2771535" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/TC.2017.2771535</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xgooglev212Cpufreq"></a><span class="LinLibertineT-tlf-t1-x-x-80">[10]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Joel Fernandes and Peter Zijlstra. 2017. [v2,1/2] cpufreq: Make iowait boost a policy option - Patchwork &#8212; google.com.</span>
+  <a href="https://patchwork.kernel.org/project/linux-pm/patch/20170519062344.27692-2-joelaf@google.com/" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://patchwork.kernel.org/project/linux-pm/patch/20170519062344.27692-2-joelaf@google.com/</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">.</span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X10.1007/978-3-540-87403-4_12"></a><span class="LinLibertineT-tlf-t1-x-x-80">[11]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Steven Gianvecchio, Haining Wang, Duminda Wijesekera, and Sushil Jajodia. 2008. Model-Based Covert Timing Channels: Automated Modeling and Evasion. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Recent Advances in Intrusion</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Detection</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">, Richard Lippmann, Engin Kirda, and Ari Trachtenberg (Eds.). Springer Berlin Heidelberg, Berlin, Heidelberg, 211&#8211;230.</span>
+</p>
+
+              <p class="bibitem">
+  <span class="biblabel">
+    <a id="X217454"></a><span class="LinLibertineT-tlf-t1-x-x-80">[12]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Ben Gras, Kaveh Razavi, Herbert Bos, and Cristiano Giuffrida.</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">2018. Translation Leak-aside Buffer: Defeating Cache Side-channel Protections with TLB Attacks. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">27th USENIX Security Symposium</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">(USENIX Security 18)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Baltimore, MD, 955&#8211;972.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity18/presentation/gras" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity18/presentation/gras</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:uncore-freq-scaling:Micro-2023"></a><span class="LinLibertineT-tlf-t1-x-x-80">[13]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Yanan Guo, Dingyuan Cao, Xin Xin, Youtao Zhang, and Jun Yang.</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">2023. Uncore Encore: Covert Channels Exploiting Uncore Frequency Scaling. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Proceedings of the 56th Annual IEEE/ACM International</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Symposium on Microarchitecture </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">(Toronto, ON, Canada) </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">(MICRO &#8217;23)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Association for Computing Machinery, New York, NY, USA, 843&#8211;855.</span>
+  <a href="https://doi.org/10.1145/3613424.3614259" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1145/3613424.3614259</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:uncore:ATC-2012"></a><span class="LinLibertineT-tlf-t1-x-x-80">[14]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Vishal Gupta, Paul Brett, David Koufaty, Dheeraj Reddy, Scott Hahn, Karsten Schwan, and Ganapati Srinivasa.</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">2012. The Forgotten &#8216;Uncore&#8217;: On the Energy-Efficiency of Heterogeneous Cores. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">2012 USENIX Annual Technical Conference</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">(USENIX ATC 12)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Boston, MA, 367&#8211;372.</span>
+  <a href="https://www.usenix.org/conference/atc12/technical-sessions/presentation/gupta" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/atc12/technical-sessions/presentation/gupta</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:scaling:FGCS-2016"></a><span class="LinLibertineT-tlf-t1-x-x-80">[15]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Shadi Ibrahim, Tien-Dat Phan, Alexandra Carpen-Amarie, Houssem-Eddine Chihoub, Diana Moise, and Gabriel Antoniu. 2016.</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Governing energy consumption in Hadoop through CPU frequency scaling: An analysis. </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Future Generation Computer Systems </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">54 (Jan 2016), 219&#8211;232.</span>
+  <a href="https://doi.org/10.1016/j.future.2015.01.005" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1016/j.future.2015.01.005</span>
+  </a>
+</p>
+
+               <p class="bibitem">
+  <span class="biblabel">
+    <a id="XSSD:frequency:IEICE-2019"></a><span class="LinLibertineT-tlf-t1-x-x-80">[16]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Satoshi IMAMURA,</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Eiji YOSHIDA, and Kazuichi OE. 2019. Reducing CPU Power</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Consumption with Device Utilization-Aware DVFS for Low-Latency</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">SSDs.</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">IEICE Transactions on Information and Systems </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">E102.D, 9 (2019),</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">1740&#8211;1749.</span>
+  <a href="https://doi.org/10.1587/transinf.2018EDP7337" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1587/transinf.2018EDP7337</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xcryptoeprint:2011/506"></a><span class="LinLibertineT-tlf-t1-x-x-80">[17]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">David Jao and Luca De Feo. 2011. Towards Quantum-Resistant</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Cryptosystems from Supersingular Elliptic Curve Isogenies. In</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Post-Quantum Cryptography</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">, Bo-Yin Yang (Ed.). Springer Berlin</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Heidelberg, Berlin, Heidelberg, 19&#8211;34.</span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:Sync+Sync:SEC-2024"></a><span class="LinLibertineT-tlf-t1-x-x-80">[18]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Qisheng Jiang and Chundong Wang. 2024. Sync+Sync:</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">A Covert Channel Built on fsync with Storage. In</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">33rd USENIX Security Symposium (USENIX Security</span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">24)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Philadelphia, PA, 3349&#8211;3366.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity24/presentation/jiang-qisheng" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity24/presentation/jiang-qisheng</span>
+  </a>
+</p>
+
+   <p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:SSD-contention:NDSS-2025"></a><span class="LinLibertineT-tlf-t1-x-x-80">[19]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Jonas Jufinger, Fabian Rauscher, Giuseppe La Manna, and Daniel Gruss. 2025. Secret Spilling Drive: Leaking User Behavior through SSD Contention. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Network and Distributed System Security (NDSS) Symposium 2025.</span>
+  <a href="https://doi.org/10.14722/ndss.2025.23208" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.14722/ndss.2025.23208</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:freq-scaling:EuroPar-2011"></a><span class="LinLibertineT-tlf-t1-x-x-80">[20]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Michael A. Laurenzano, Mitesh Meswani, Laura Carrington, Allan Snavely, Mustafa M. Tikir, and Stephen Poole. 2011. Reducing energy usage with memory and computation-aware dynamic frequency scaling. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Proceedings of the 17th International Conference on Parallel Processing - Volume Part I (Bordeaux, France) (Euro-Par&#8217;11).</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Springer-Verlag, Berlin, Heidelberg, 79&#8211;90.</span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X285391"></a><span class="LinLibertineT-tlf-t1-x-x-80">[21]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Yoochan Lee, Jinhan Kwak, Junesoo Kang, Yuseok Jeon, and Byoungyoung Lee. 2023. Pspray: Timing Side-Channel based Linux Kernel Heap Exploitation Technique. In </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">32nd USENIX Security Symposium (USENIX Security 23).</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">USENIX Association, Anaheim, CA, 6825&#8211;6842.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity23/presentation/lee-yoochan" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity23/presentation/lee-yoochan</span>
+  </a>
+</p>
+
+  <p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:software-power:SP-2021"></a><span class="LinLibertineT-tlf-t1-x-x-80">[22]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Moritz Lipp, Andreas Kogler, David Oswald, Michael Schwarz, Catherine Easdon, Claudio Canella, and Daniel Gruss. 2021. PLATYPUS: Software-based Power Side-Channel Attacks on x86. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">2021 IEEE Symposium on Security and Privacy (SP)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. 355&#8211;371.</span>
+  <a href="https://doi.org/10.1109/SP40001.2021.00063" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/SP40001.2021.00063</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:freq-throttling:CCS-2022"></a><span class="LinLibertineT-tlf-t1-x-x-80">[23]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Chen Liu, Abhishek Chakraborty, Nikhil Chawla, and Neer Roggel. 2022. Frequency Throttling Side-Channel Attack. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security (Los Angeles, CA, USA) (CCS &#8217;22)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Association for Computing Machinery, New York, NY, USA, 1977&#8211;1991.</span>
+  <a href="https://doi.org/10.1145/3548606.3560682" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1145/3548606.3560682</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X7163050"></a><span class="LinLibertineT-tlf-t1-x-x-80">[24]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Fangfei Liu, Yuval Yarom, Qian Ge, Gernot Heiser, and Ruby B. Lee. 2015. Last-Level Cache Side-Channel Attacks are Practical. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">2015 IEEE Symposium on Security and Privacy</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. 605&#8211;622.</span>
+  <a href="https://doi.org/10.1109/SP.2015.43" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/SP.2015.43</span>
+  </a>
+</p>
+
+   <p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:Optane:SEC-2023"></a><span class="LinLibertineT-tlf-t1-x-x-80">[25]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Sihang Liu, Suraaj Kanniwadi, Martin Schwarzl, Andreas Kogler, Daniel Gruss, and Samira Khan. 2023. Side-Channel Attacks on Optane Persistent Memory. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">32nd USENIX Security Symposium (USENIX Security 23)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Anaheim, CA, 6807&#8211;6824.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity23/presentation/liu-sihang" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity23/presentation/liu-sihang</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X299529"></a><span class="LinLibertineT-tlf-t1-x-x-80">[26]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Lukas Maar, Stefan Gast, Martin Unterguggenberger, Mathias Oberhuber, and Stefan Mangard. 2024. SLUBStick: Arbitrary Memory Writes through Practical Software Cross-Cache Attacks within the Linux Kernel. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">33rd USENIX Security Symposium (USENIX Security 24)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Philadelphia, PA, 4051&#8211;4068.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity24/presentation/maar-slubstick" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity24/presentation/maar-slubstick</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:KernelSnitch:NDSS-2025"></a><span class="LinLibertineT-tlf-t1-x-x-80">[27]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Lukas Maar, Jonas Jufinger, Thomas Steinbauer, Daniel Gruss, and Stefan Mangard. 2025. KernelSnitch: Side-Channel Attacks on Kernel Data Structures. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Network and Distributed System Security Symposium (NDSS) 2025</span>.
+  <a href="https://doi.org/10.14722/ndss.2025.240223" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.14722/ndss.2025.240223</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Network and Distributed System Security Symposium 2025 : NDSS 2025, Conference date: 23-02-2025 Through 28-02-2025.
+  </span>
+</p>
+
+               <p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:PowerNap:APLOS-2009"></a><span class="LinLibertineT-tlf-t1-x-x-80">[28]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    David Meisner, Brian T. Gold, and Thomas F. Wenisch. 2009. PowerNap: eliminating server idle power. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Proceedings of the 14th International Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS XIV)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">, Washington, DC, USA. Association for Computing Machinery, New York, NY, USA, 205&#8211;216.</span>
+  <a href="https://doi.org/10.1145/1508244.1508269" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1145/1508244.1508269</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xlib:pqcrypto-sike"></a><span class="LinLibertineT-tlf-t1-x-x-80">[29]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Microsoft. 2024. PQCrypto-SIKE: Supersingular Isogeny Key Encapsulation.
+  </span>
+  <a href="https://github.com/microsoft/PQCrypto-SIKE.git" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://github.com/microsoft/PQCrypto-SIKE.git</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Accessed: 2024-12-30.</span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:scaling:TCAD-2018"></a><span class="LinLibertineT-tlf-t1-x-x-80">[30]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Philipp Miedl, Xiaoxi He, Matthias Meyer, Davide Basilio Bartolini, and Lothar Thiele. 2018. Frequency Scaling As a Security Threat on Multicore Systems. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80"> 37, 11 (2018), 2497&#8211;2508.</span>
+  <a href="https://doi.org/10.1109/TCAD.2018.2857038" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/TCAD.2018.2857038</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:IdleLeak:NDSS-2024"></a><span class="LinLibertineT-tlf-t1-x-x-80">[31]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Fabian Rauscher, Andreas Kogler, Jonas Jufinger, and Daniel Gruss. 2024. IdleLeak: Exploiting Idle State Side Effects for Information Leakage. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">31st Annual Network and Distributed System Security Symposium, NDSS 2024, San Diego, California, USA, February 26 - March 1, 2024</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. The Internet Society, 1&#8211;16.</span>
+  <a href="https://www.ndss-symposium.org/ndss-paper/idleleak-exploiting-idle-state-side-effects-for-information-leakage/" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.ndss-symposium.org/ndss-paper/idleleak-exploiting-idle-state-side-effects-for-information-leakage/</span>
+  </a>
+</p>
+
+              <p class="bibitem">
+  <span class="biblabel">
+    <a id="X235487"></a><span class="LinLibertineT-tlf-t1-x-x-80">[32]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Anatoly Shusterman, Lachlan Kang, Yarden Haskal, Yosef Meltser, Prateek Mittal, Yossi Oren, and Yuval Yarom. 2019. Robust Website Fingerprinting Through the Cache Occupancy Channel. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">28th USENIX Security Symposium (USENIX Security 19)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Santa Clara, CA, 639&#8211;656.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity19/presentation/shusterman" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity19/presentation/shusterman</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:ClkScrew:ATC-2017"></a><span class="LinLibertineT-tlf-t1-x-x-80">[33]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Adrian Tang, Simha Sethumadhavan, and Salvatore Stolfo. 2017. CLKSCREW: Exposing the Perils of Security-Oblivious Energy Management. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">26th USENIX Security Symposium (USENIX Security 17)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Vancouver, BC, 1057&#8211;1074.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/tang" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/tang</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:Hertzbleed:SEC-2022"></a><span class="LinLibertineT-tlf-t1-x-x-80">[34]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Yingchen Wang, Riccardo Paccagnella, Elizabeth Tang He, Hovav Shacham, Christopher W. Fletcher, and David Kohlbrenner. 2022. Hertzbleed: Turning Power Side-Channel Attacks Into Remote Timing Attacks on x86. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">31st USENIX Security Symposium (USENIX Security 22)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Boston, MA, 679&#8211;697.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity22/presentation/wang-yingchen" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity22/presentation/wang-yingchen</span>
+  </a>
+</p>
+
+               <p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:SIKE:SP-2023"></a><span class="LinLibertineT-tlf-t1-x-x-80">[35]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Yingchen Wang, Riccardo Paccagnella, Alan Wandke, Zhao Gang, Grant Garrett-Grossman, Christopher W. Fletcher, David Kohlbrenner, and Hovav Shacham. 2023. DVFS Frequently Leaks Secrets: Hertzbleed Attacks Beyond SIKE, Cryptography, and CPU-Only Data. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">2023 IEEE Symposium on Security and Privacy (SP)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. IEEE Computer Society, Los Alamitos, CA, USA, 2306&#8211;2320.</span>
+  <a href="https://doi.org/10.1109/SP46215.2023.10179326" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/SP46215.2023.10179326</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:NVLeak:SEC-2023"></a><span class="LinLibertineT-tlf-t1-x-x-80">[36]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Zixuan Wang, Mohammadkazem Taram, Daniel Moghimi, Steven Swanson, Dean Tullsen, and Jishen Zhao. 2023. NVLeak: Off-Chip Side-Channel Attacks via Non-Volatile Memory Systems. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">32nd USENIX Security Symposium (USENIX Security 23)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, Anaheim, CA, 6771&#8211;6788.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity23/presentation/wang-zixuan" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity23/presentation/wang-zixuan</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:scheduling-energy:OSDI-1994"></a><span class="LinLibertineT-tlf-t1-x-x-80">[37]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Mark Weiser, Brent Welch, Alan Demers, and Scott Shenker. 1994. Scheduling for reduced CPU energy. In
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">Proceedings of the 1st USENIX Conference on Operating Systems Design and Implementation (Monterey, California) (OSDI '94)</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. USENIX Association, USA, 12&#8211;22.</span>
+</p>
+
+   <p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:iowait-git-pull"></a><span class="LinLibertineT-tlf-t1-x-x-80">[38]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Rafael J. Wysocki. 2016. [GIT PULL] Power management material for v4.9-rc1.
+  </span>
+  <a href="https://lore.kernel.org/lkml/CAJZ5v0hcVZSLR+ya-p=WqeYG1mXSz4H=xj9K4hDFRh-c5TOHtQ@mail.gmail.com/" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://lore.kernel.org/lkml/CAJZ5v0hcVZSLR+ya-p=WqeYG1mXSz4H=xj9K4hDFRh-c5TOHtQ@mail.gmail.com/</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Accessed: 2024-12-30.</span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="XiuLinuxKernelArchive"></a><span class="LinLibertineT-tlf-t1-x-x-80">[39]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Rafael J. Wysocki. 2016. Linux-Kernel Archive: [RFC][PATCH 0/7] cpufreq / sched: cpufreq_update_util() flags and iowait boosting.
+  </span>
+  <a href="https://lkml.iu.edu/hypermail/linux/kernel/1607.3/04060.html" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://lkml.iu.edu/hypermail/linux/kernel/1607.3/04060.html</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">.</span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:CPUFreq"></a><span class="LinLibertineT-tlf-t1-x-x-80">[40]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Rafael J. Wysocki. 2017. CPU Performance Scaling.
+  </span>
+  <a href="https://www.kernel.org/doc/html/latest/admin-guide/pm/cpufreq.html" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.kernel.org/doc/html/latest/admin-guide/pm/cpufreq.html</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Accessed: 2025-01-06.</span>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xintel-pstate"></a><span class="LinLibertineT-tlf-t1-x-x-80">[41]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Rafael J. Wysocki. 2017. intel_pstate CPU Performance Scaling Driver.
+  </span>
+  <a href="https://www.kernel.org/doc/html/latest/admin-guide/pm/intel_pstate.html" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.kernel.org/doc/html/latest/admin-guide/pm/intel</span><sub><span class="cmr-6">p</span></sub><span class="LinLibertineT-tlf-t1-x-x-80">state.html</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Accessed: 2024-12-30.</span>
+</p>
+
+   <p class="bibitem">
+  <span class="biblabel">
+    <a id="XSSD:BypassD:ASPLOS-2024"></a><span class="LinLibertineT-tlf-t1-x-x-80">[42]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Sujay Yadalam, Chloe Alverti, Vasileios Karakostas, Jayneel Gandhi, and Michael Swift. 2024. BypassD: Enabling fast userspace access to shared SSDs. In 
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">
+    Proceedings of the 29th ACM International Conference on Architectural Support for Programming Languages and Operating Systems, Volume 1
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">(La Jolla, CA, USA) (ASPLOS '24).</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Association for Computing Machinery, New York, NY, USA, 35-51.
+  </span>
+  <a href="https://doi.org/10.1145/3617232.3624854" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1145/3617232.3624854</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X8835325"></a><span class="LinLibertineT-tlf-t1-x-x-80">[43]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Mengjia Yan, Read Sprabery, Bhargava Gopireddy, Christopher Fletcher, Roy Campbell, and Josep Torrellas. 2019. Attack Directories, Not Caches: Side Channel Attacks in a Non-Inclusive World. In 
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">2019 IEEE Symposium on Security and Privacy (SP).</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">888-904.</span>
+  <a href="https://doi.org/10.1109/SP.2019.00004" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/SP.2019.00004</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X184415"></a><span class="LinLibertineT-tlf-t1-x-x-80">[44]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Yuval Yarom and Katrina Falkner. 2014. FLUSH+RELOAD: A High Resolution, Low Noise, L3 Cache Side-Channel Attack. In 
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">23rd USENIX Security Symposium (USENIX Security 14).</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">USENIX Association, San Diego, CA, 719-732.</span>
+  <a href="https://www.usenix.org/conference/usenixsecurity14/technical-sessions/presentation/yarom" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenixsecurity14/technical-sessions/presentation/yarom</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X8894104"></a><span class="LinLibertineT-tlf-t1-x-x-80">[45]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Baki Berkay Yilmaz, Nader Sehatbakhsh, Alenka Zajić, and Milos Prvulovic. 2020. Communication Model and Capacity Limits of Covert Channels Created by Software Activities. 
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">IEEE Transactions on Information Forensics and Security</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">15 (2020), 1891-1904.</span>
+  <a href="https://doi.org/10.1109/TIFS.2019.2952265" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/TIFS.2019.2952265</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="XCPU:per-chip-scaling:ATC-2010"></a><span class="LinLibertineT-tlf-t1-x-x-80">[46]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Xiao Zhang, Sandhya Dwarkadas, and Rongrong Zhong. 2010. An Evaluation of Per-Chip Nonuniform Frequency Scaling on Multicores. In 
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">2010 USENIX Annual Technical Conference (USENIX ATC 10).</span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">USENIX Association, Boston, MA, 259-264.</span>
+  <a href="https://www.usenix.org/conference/usenix-atc-10/evaluation-chip-nonuniform-frequency-scaling-multicores" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.usenix.org/conference/usenix-atc-10/evaluation-chip-nonuniform-frequency-scaling-multicores</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="Xsecurity:SegScope:HPCA-2024"></a><span class="LinLibertineT-tlf-t1-x-x-80">[47]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Xin Zhang, Zhi Zhang, Qingni Shen, Wenhao Wang, Yansong Gao, Zhuoxi Yang, and Jiliang Zhang. 2024. SegScope: Probing Fine-grained Interrupts via Architectural Footprints. In 
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">
+    2024 IEEE International Symposium on High-Performance Computer Architecture (HPCA).
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">424-438.</span>
+  <a href="https://doi.org/10.1109/HPCA57654.2024.00039" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1109/HPCA57654.2024.00039</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="X10.1145/3433210.3437517"></a><span class="LinLibertineT-tlf-t1-x-x-80">[48]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Zhenkai Zhang, Sisheng Liang, Fan Yao, and Xing Gao. 2021. Red Alert for Power Leakage: Exploiting Intel RAPL-Induced Side Channels. In 
+  </span>
+  <span class="LinLibertineTI-tlf-t1-x-x-80">
+    Proceedings of the 2021 ACM Asia Conference on Computer and Communications Security (Virtual Event, Hong Kong) (ASIA CCS '21).
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">Association for Computing Machinery, New York, NY, USA, 162-175.</span>
+  <a href="https://doi.org/10.1145/3433210.3437517" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://doi.org/10.1145/3433210.3437517</span>
+  </a>
+</p>
+
+<p class="bibitem">
+  <span class="biblabel">
+    <a id="amd-pstate"></a><span class="LinLibertineT-tlf-t1-x-x-80">[49]</span>
+  </span>
+  <span class="LinLibertineT-tlf-t1-x-x-80">
+    Rui Huang. amd-pstate cpu performance scaling driver.
+  </span>
+  <a href="https://www.kernel.org/doc/html/latest/admin-guide/pm/amd-pstate.html" class="url">
+    <span class="LinLibertineT-tlf-t1-x-x-80">https://www.kernel.org/doc/html/latest/admin-guide/pm/amd-pstate.html</span>
+  </a>
+  <span class="LinLibertineT-tlf-t1-x-x-80">. Accessed: 2024-12-30.</span>
+</p>
+
+</body> 
+</html>
+                                                                                                
+                                                                                                
+                                                                                                
+   
