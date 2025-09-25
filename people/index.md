@@ -95,13 +95,31 @@ title: Members of Toast Lab
 <p><strong>Jiale Wang</strong> (&#29579;&#22025;&#20048;), who received a bachelor's degree from Shanghai Ocean University (&#19978;&#28023;&#28023;&#27915;&#22823;&#23398;), has joined Toast Lab for postgraduate study. His research interests include optimizing computer systems.</p>
 </div>
 
+<div class="news-row-left"><p align="center"><img src="./photos/chenwx.jpg" height="180" alt="" /></p></div>
+<div class="news-row-right2" id="student-chenwx">
+<p><strong>Wenxin Chen</strong> (&#38472;&#25991;&#27427;) received a bachelor's degree from Central South University (&#20013;&#21335;&#22823;&#23398;). She would join Toast Lab for postgraduate study. Her research interests include computer system optimizations.</p>
+</div>
+
+
+<div class="news-row-left"><p align="center"><img src="./photos/lijh.jpg" height="180" alt="" /></p></div>
+<div class="news-row-right2" id="student-lijh">
+<p><strong>Jiahui Li</strong> (&#26446;&#20339;&#36745;) graduated from Beijing University of Chemical Technology (&#21271;&#20140;&#21270;&#24037;&#22823;&#23398;) in 2025 with a B.Eng. in Electronics and Information Engineering. He will pursue the postgraduate study at Toast Lab and CAS4ET Lab, as Chundong and Prof. <a href="https://faculty.sist.shanghaitech.edu.cn/liust/" target="_blank">Siting Liu</a> (&#21016;&#24605;&#24311;) are co-supervising him. Jiahui's research interests include computational storage device and computer architecture.</p>
+</div>
+
+
+<div class="news-row-left"><p align="center"><img src="./photos/wusc.jpg" height="180" alt="" /></p></div>
+<div class="news-row-right2" id="student-wusc">
+<p><strong>Songcan Wu</strong> (&#21556;&#26494;&#28799;) graduated from Hefei University of Technology (&#21512;&#32933;&#24037;&#19994;&#22823;&#23398;) in 2025 with a Bachelor's degree in Electronic Science and Technology. He has joined Toast Lab for postgraduate study.His research interests include computer architecture and storage system.</p>
+</div>
+
 
 <div class="clear"></div>
 <hr color="red">
 
 
 <h2><a name="/people/alumni"><font color="darkred">Alumni</font></a></h2>
-
+<p><strong>Jiyang Qiao</strong> (&#20052;&#32426;&#38451;), M.Eng. 2025, China Telecom (&#20013;&#22269;&#30005;&#20449;).</p>
+<p><strong>Mingyu Lv</strong> (&#21525;&#26126;&#31161;), M.Eng. 2025, Guangxi Power Grid (&#24191;&#35199;&#30005;&#32593;&#20844;&#21496;).</p>
 <p><strong>Juncheng Chu</strong> (&#20648;&#21531;&#25104;), M.Eng. 2024, ByteDance (&#23383;&#33410;&#36339;&#21160;).</p>
 <p><strong>Qing Xu</strong> (&#35768;&#26228;), M.Eng. 2024, Shanghai APACTRON Particle Equipment Co., Ltd (&#19978;&#28023;&#33406;&#26222;&#24378;&#31890;&#23376;&#35774;&#22791;&#26377;&#38480;&#20844;&#21496;).</p>
 <p><strong>Qisheng Jiang</strong> (&#23004;&#20854;&#21319;), M.Eng. 2024, Duke University (&#26460;&#20811;&#22823;&#23398;) for PhD program.</p>
