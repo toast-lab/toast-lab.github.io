@@ -2,12 +2,50 @@
 layout: info
 title: Publications of Toast Lab
 ---
-<h3>Selected Publications</h3>
+<h3>Selected Recent Publications</h3>
 <ol>
 
 
+
 <li>
-<span class="author">Haoran Dang, Chongnan Ye, Yanpeng Hu, Chundong Wang</span>,
+<span class="author">Yanpeng Hu, Li Zhu, Lei Jia, and Chundong Wang</span>,
+<span class="title">"Pome: Parallelizing I/Os and Computations for Efficient LSM-tree-based Data Storage"</span>,
+<span class="publisher">The 35th ACM International Symposium on High-Performance Parallel and Distributed Computing (HPDC 2026)</span>, July, <span class="year">2026</span>.
+[<a  href="https://arxiv.org/pdf/2307.16693" target="_blank">link</a>]&nbsp;
+(<span class="hlnote0">Full Paper</span>)&nbsp;
+</li>
+
+
+<li>
+<span class="author">Li Zhu, Siting Liu, and Chundong Wang</span>,
+<span class="title">"IOLeak: Side-channel Information Leakage by Monitoring CPU Frequency Scaling through I/Os"</span>,
+<span class="publisher">ACM Transactions on Embedded Computing Systems</span>, accepted in June, <span class="year">2026</span>.
+[<a  href="https://toast-lab.tech/publications/releases/IOLeak/index.html" target="_blank">link</a>]&nbsp;
+(<span class="hlnote0">Full Paper</span>)&nbsp;
+</li>
+
+
+<li>
+<span class="author">Qisheng Jiang and Chundong Wang</span>,
+<span class="title">"Sync+Sync: A Covert Channel Built on fsync with Storage"</span>,
+<span class="publisher">The 33rd USENIX Security Symposium 2024</span>, August, <span class="year">2024</span>.
+[<a  href="https://www.usenix.org/conference/usenixsecurity24/presentation/jiang-qisheng" target="_blank">link</a>]&nbsp;
+(<span class="hlnote0">Full Paper</span>)&nbsp;
+</li>
+
+
+<li>
+<span class="author">Chongnan Ye, Meng Chen, Qisheng Jiang, and Chundong Wang</span>,
+<span class="title">"Hercules: Enabling Atomic Durability for Persistent Memory with Transient Persistence Domain"</span>,
+<span class="publisher">ACM Transactions on Embedded Computing Systems, Volume 23, Issue 6. Article No.: 87, Pages 1&ndash;34</span>, September, <span class="year">2024</span>.
+[<a  href="https://dl.acm.org/doi/full/10.1145/3607473" target="_blank">link</a>]&nbsp;
+(<span class="hlnote0">Full Paper</span>)&nbsp;
+</li>
+
+
+
+<li>
+<span class="author">Haoran Dang, Chongnan Ye, Yanpeng Hu, and Chundong Wang</span>,
 <span class="title">"NobLSM: An LSM-tree with Non-blocking Writes for SSDs"</span>,
 <span class="publisher">Proceedings of the 59th Annual Design Automation Conference</span>, pp. 403&ndash;408, July, <span class="year">2022</span>.
 
@@ -16,6 +54,7 @@ title: Publications of Toast Lab
 </li>
 
 
+<!--
 <li>
 <span class="author">Chundong Wang, Gunavaran Brihadiswaran, Xingbin Jiang, Sudipta Chattopadhyay</span>,
 <span class="title">"Circ-Tree: A B+-Tree Variant with Circular Design for Persistent Memory"</span>,
@@ -26,7 +65,7 @@ title: Publications of Toast Lab
 </li>
 
 
-<!--
+
 <li>
 <span class="author">Chundong Wang, Sudipta Chattopadhyay, Gunavaran Brihadiswarn</span>,
 <span class="title">"Crab-tree: A Crash Recoverable B+-tree Variant for Persistent Memory with ARMv8 Architecture"</span>,
@@ -35,7 +74,7 @@ title: Publications of Toast Lab
 [<a  href="https://dl.acm.org/doi/abs/10.1145/3396236" target="_blank">link</a>]&nbsp;
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
--->
+
 
 <li>
 <span class="author">Matheus E. Garbelini, Chundong Wang, Sudipta Chattopadhyay, Sumei Sun, Ernest Kurniawan</span>,
@@ -64,7 +103,7 @@ title: Publications of Toast Lab
 (<span class="hlnote0">Full Paper</span>)&nbsp;
 </li>
 
-<!--
+
 <li>
 <span class="author">Jun Yang, Qingsong Wei, Cheng Chen, Chundong Wang, Khai Leong Yong, Bingsheng He</span>,
 <span class="title">"NV-Tree: Reducing Consistency Cost for NVM-based Single Level Systems"</span>,
@@ -76,4 +115,6 @@ title: Publications of Toast Lab
 -->
 
 </ol>
-<p>&#x261E;&#x261E;&#x261E; <a href="./papers.html" target="_blank">Full Publication List</a> </p>
+<p>&#x261E;&#x261E;&#x261E; <a href="https://scholar.google.com/citations?user=a-79PFIAAAAJ" target="_blank">Full Publication List</a> </p>
+
+<p class="small"><i>Last updated on July 5th, 2026.<></i></p>
