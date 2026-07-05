@@ -117,4 +117,5 @@ title: Publications of Toast Lab
 </ol>
 <p>&#x261E;&#x261E;&#x261E; <a href="https://scholar.google.com/citations?user=a-79PFIAAAAJ" target="_blank">Full Publication List</a> </p>
 
-<p><i><font face="Times New Roman" color=#871F78 size=2>Last updated on July 5th, 2026.</font></i></p>
+<em style="color: #871F78; font-family: 'Times New Roman'; font-size: small;">Last updated on July 5th, 2026.</em>
+
