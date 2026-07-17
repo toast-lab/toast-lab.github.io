@@ -1,5 +1,5 @@
 ---
-title: Toast Lab Awarded the Best Paper @ HPDC 2026
+title: Toast Lab Awarded the Best Paper at HPDC 2026
 commentable: false
 Edit: 2026-07-17
 mathjax: true
