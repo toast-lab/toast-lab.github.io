@@ -15,5 +15,5 @@ description: Congratulations to All Authors!
 
 <p>This paper was solely done by Toast Labmates. It has been <a href="https://dl.acm.org/doi/10.1145/3806645.3807603" target="_blank">online</a>. The source code is also <a href="https://github.com/toast-lab/LSM-Pome" target="_blank">available</a>.</p>
 
-<img src="https://raw.githubusercontent.com/toast-lab/toast-lab.github.io/refs/heads/master/_posts/pictures/HPDC26-award.jpg" alt="The Certificate of Best Paper Award" width="100">
+<img src="https://raw.githubusercontent.com/toast-lab/toast-lab.github.io/refs/heads/master/_posts/pictures/HPDC26-award.jpg" alt="The Certificate of Best Paper Award" width="500">
 
