@@ -7,7 +7,7 @@ mermaid: true
 status: Completed
 tags: News
 categories: Publication
-description: A paper about accelerating GNN training is accepted by ICPP '24.
+description: A paper about accelerating GNN training is accepted by ICPP 2024.
 ---
 
 <p>Our paper titled "GNNDrive: Reducing Memory Contention and I/O Congestion for Disk-based GNN Training" is accepted by the <a href="https://icpp2024.org" style="text-decoration: none;" target="_blank">53rd International Conference on Parallel Processing (ICPP 2024)</a>. In the paper, we studied the severe memory contention and I/O congestion issues that affect the training efficiency for large-scale GNN models. We accordingly proposed GNNDrive, a disk-based GNN training algorithm that minimizes memory footprint and avoids I/O congestion. More details can be found in the paper.</p>
