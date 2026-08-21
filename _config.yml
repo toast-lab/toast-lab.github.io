@@ -27,6 +27,7 @@ author:
   linkedin:
   clustrmap:      
 
+future: true
 
 # markdown
 markdown: kramdown

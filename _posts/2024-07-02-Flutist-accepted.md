@@ -7,7 +7,7 @@ mermaid: true
 status: Completed
 tags: News
 categories: Publication
-description: A paper on parallelizing transactions for LSM-tree RDBs is accepted by APWeb '24.
+description: A paper on parallelizing transactions for LSM-tree RDBs is accepted by APWeb 2024.
 ---
 
 <p>Our paper titled "Flutist: Parallelizing Transaction Processing for LSM-tree-based Relational Database" is accepted by the <a href="https://apweb2024.zjnu.edu.cn" style="text-decoration: none;" target="_blank">8th APWeb-WAIM joint international conference on Web and Big Data (APWeb 2024)</a>. In the paper, we take MyRocks, one typical relational database based on LSM-tree storage engine, for study. We find that MyRocks severely suffers from the sequential commits of transactions with RocksDB. We hence propose an algorithm named Flutist that parallelizes transaction processing through concurrent commits with RocksDB and preserves a desired committing order. </p>
