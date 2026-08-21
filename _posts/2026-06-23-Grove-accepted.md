@@ -7,7 +7,7 @@ mermaid: true
 status: Completed
 tags: News
 categories: Publication
-description: A paper on de-aging for LSM-tree is accepted by APWeb '26.
+description: A paper on de-aging for LSM-tree is accepted by APWeb 2026.
 ---
 
 <p>Our paper titled "Grove: De-aging by Spawning a Tract of LSM-trees" is accepted by the <a href="https://conferences.sigappfr.org/apweb2026/" style="text-decoration: none;" target="_blank">10th APWeb-WAIM joint international conference on Web and Big Data (APWeb-WAIM 2026)</a>.</p> 
